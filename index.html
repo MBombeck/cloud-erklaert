@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Was ist Cloud Computing? — Kreisverwaltung Recklinghausen</title>
+  <meta name="description" content="Eine visuelle Erklaerung von Cloud Computing fuer die Kreisverwaltung Recklinghausen">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0e1a;
+      --bg-card: rgba(15, 20, 40, 0.7);
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(99, 102, 241, 0.3);
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --text-bright: #f8fafc;
+      --accent: #6366f1;
+      --accent-2: #818cf8;
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --orange: #f97316;
+      --purple: #a78bfa;
+      --red: #ef4444;
+      --yellow: #eab308;
+      --cyan: #06b6d4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+      z-index: -1;
+      animation: ambientDrift 20s ease-in-out infinite alternate;
+    }
+    @keyframes ambientDrift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-3%, 2%) rotate(3deg); }
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--blue), var(--cyan));
+      z-index: 1000;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+    }
+
+    /* Navigation dots */
+    .nav-dots {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-dot.active {
+      background: var(--accent);
+      border-color: var(--accent-2);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+      transform: scale(1.3);
+    }
+    .nav-dot:hover { background: rgba(255, 255, 255, 0.3); }
+    .nav-dot .tooltip {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(15, 20, 40, 0.95);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .nav-dot:hover .tooltip { opacity: 1; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      backdrop-filter: blur(8px);
+    }
+    .hero-badge .pulse {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 50%, #e2e8f0 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 200% center; }
+    }
+    .hero .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--text-dim);
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+    .hero .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+    .scroll-arrow {
+      width: 24px; height: 24px;
+      border-right: 2px solid var(--text-dim);
+      border-bottom: 2px solid var(--text-dim);
+      transform: rotate(45deg);
+    }
+    .hero-cloud {
+      position: absolute;
+      opacity: 0.03;
+      font-size: 20rem;
+      color: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Scenes */
+    .scene {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      position: relative;
+    }
+    .scene-inner {
+      max-width: 1000px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scene-inner.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scene-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-2);
+      margin-bottom: 1rem;
+    }
+    .scene-label .num {
+      width: 24px; height: 24px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      color: white;
+    }
+    .scene h2 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      color: var(--text-bright);
+    }
+    .scene .lead {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+
+    /* Glass card */
+    .glass {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.05));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Boxes */
+    .node {
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .node:hover { transform: translateY(-2px); }
+    .node small { display: block; font-weight: 400; font-size: 0.8rem; margin-top: 4px; opacity: 0.7; }
+    .node-blue {
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: #93c5fd;
+    }
+    .node-blue:hover { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15); }
+    .node-green {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      color: #86efac;
+    }
+    .node-green:hover { box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15); }
+    .node-purple {
+      background: rgba(167, 139, 250, 0.12);
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      color: #c4b5fd;
+    }
+    .node-purple:hover { box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15); }
+    .node-orange {
+      background: rgba(249, 115, 22, 0.12);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      color: #fdba74;
+    }
+    .node-orange:hover { box-shadow: 0 4px 20px rgba(249, 115, 22, 0.15); }
+    .node-red {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+    }
+    .node-cyan {
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      color: #67e8f9;
+    }
+    .node-large { padding: 1.5rem 2rem; font-size: 1.1rem; }
+
+    .connector { color: var(--text-dim); font-size: 1.5rem; display: flex; align-items: center; }
+    .connector-v { text-align: center; color: var(--text-dim); font-size: 1.5rem; margin: 0.75rem 0; }
+
+    /* Metaphor callout */
+    .metaphor {
+      background: rgba(234, 179, 8, 0.06);
+      border: 1px solid rgba(234, 179, 8, 0.15);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 0.95rem;
+      color: #fde68a;
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .metaphor-icon {
+      width: 36px; height: 36px;
+      background: rgba(234, 179, 8, 0.1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* Takeaway */
+    .takeaway {
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .takeaway-green {
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: #86efac;
+    }
+    .takeaway-amber {
+      background: rgba(234, 179, 8, 0.08);
+      border: 1px solid rgba(234, 179, 8, 0.2);
+      color: #fde68a;
+    }
+    .takeaway-blue {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+    }
+
+    /* Grid helpers */
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .flex-center { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    /* Rack viz */
+    .rack-group { display: flex; gap: 8px; }
+    .rack {
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 8px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .rack-u {
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 3px;
+      padding: 3px 10px;
+      font-size: 0.65rem;
+      color: #93c5fd;
+      text-align: center;
+    }
+    .rack-label { text-align: center; font-size: 0.7rem; color: #86efac; margin-top: 4px; font-weight: 600; }
+    .cost-stack { display: flex; flex-direction: column; gap: 6px; }
+    .cost-item {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      color: #fca5a5;
+      text-align: center;
+    }
+
+    /* Comparison table */
+    .comp-table {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(4, 1fr);
+      gap: 3px;
+      font-size: 0.85rem;
+    }
+    .comp-cell {
+      padding: 0.65rem 0.5rem;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 500;
+    }
+    .comp-header { color: var(--text-dim); font-weight: 600; font-size: 0.8rem; }
+    .comp-label { text-align: left; color: var(--text-dim); }
+    .comp-you { background: rgba(239, 68, 68, 0.1); color: #fca5a5; }
+    .comp-them { background: rgba(34, 197, 94, 0.1); color: #86efac; }
+
+    /* Benefits grid */
+    .benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
+    .benefit {
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.3s;
+    }
+    .benefit:hover { border-color: var(--border-glow); }
+    .benefit-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .benefit span { font-size: 0.9rem; font-weight: 500; }
+
+    /* Animated particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: rgba(99, 102, 241, 0.3);
+      border-radius: 50%;
+      animation: particleFloat linear infinite;
+    }
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) scale(1); opacity: 0; }
+    }
+
+    /* Stagger children */
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
+    .stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
+    .stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
+    .stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
+    .stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
+    .stagger.visible > *:nth-child(6) { transition-delay: 0.6s; }
+    .stagger.visible > * { opacity: 1; transform: translateY(0); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Counter animation */
+    .counter { font-variant-numeric: tabular-nums; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .g2, .g3, .benefits { grid-template-columns: 1fr; }
+      .glass { padding: 1.25rem; }
+      .nav-dots { right: 0.5rem; gap: 8px; }
+      .nav-dot { width: 8px; height: 8px; }
+      .scene { padding: 3rem 1rem; }
+      .comp-table { font-size: 0.7rem; }
+      .comp-cell { padding: 0.4rem 0.25rem; }
+    }
+    @media (max-width: 480px) {
+      .nav-dots { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="particles" id="particles"></div>
+
+  <nav class="nav-dots" id="navDots"></nav>
+
+  <!-- Hero -->
+  <section class="hero" id="scene-0">
+    <div class="hero-cloud">&#9729;</div>
+    <div class="hero-badge"><div class="pulse"></div> Interaktive Praesentation</div>
+    <h1>Was ist Cloud<br>Computing?</h1>
+    <p class="subtitle">Eine visuelle Reise vom einzelnen Computer bis zur modernen Cloud — verstaendlich erklaert fuer die Kreisverwaltung Recklinghausen.</p>
+    <div class="scroll-hint">
+      <span>Nach unten scrollen</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- Szene 1: Ein einzelner Computer -->
+  <section class="scene" id="scene-1">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">1</div> Szene</div>
+      <h2>Ein einzelner Computer</h2>
+      <p class="lead">Was steckt eigentlich in einem Computer?</p>
+      <div class="glass">
+        <div class="flex-center" style="margin-bottom:1.5rem;">
+          <div class="node node-green node-large" style="min-width:240px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 8px;display:block;"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Raspberry Pi<small>Mini-Computer</small>
+          </div>
+        </div>
+        <div class="connector-v">&#8595;</div>
+        <div class="g3 stagger" id="stagger-1">
+          <div class="node node-blue">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 6px;display:block;"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6M9 12h6M9 15h6"/></svg>
+            Prozessor<small>CPU</small>
+          </div>
+          <div class="node node-orange">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 6px;display:block;"><rect x="3" y="6" width="18" height="12" rx="1"/><path d="M7 10v4M11 10v4M15 10v4"/></svg>
+            Arbeitsspeicher<small>RAM</small>
+          </div>
+          <div class="node node-purple">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 6px;display:block;"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3"/></svg>
+            Festplatte<small>Speicher</small>
+          </div>
+        </div>
+        <div class="takeaway takeaway-amber">Jeder Computer besteht aus diesen 3 Grundbausteinen</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 2: Ein Computer, eine Aufgabe -->
+  <section class="scene" id="scene-2">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">2</div> Szene</div>
+      <h2>Ein Computer, eine Aufgabe</h2>
+      <p class="lead">Frueher: Jeder Server hatte genau einen Job</p>
+      <div class="glass">
+        <div class="g3 stagger" id="stagger-2">
+          <div style="text-align:center;">
+            <div class="node node-blue" style="margin-bottom:0.75rem;">DNS-Server<small>Namen aufloesen</small></div>
+            <div class="connector-v">&#8595;</div>
+            <div class="node node-red">1 Maschine</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="node node-green" style="margin-bottom:0.75rem;">Datei-Server<small>Dateien speichern</small></div>
+            <div class="connector-v">&#8595;</div>
+            <div class="node node-red">1 Maschine</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="node node-orange" style="margin-bottom:0.75rem;">Mail-Server<small>E-Mails senden</small></div>
+            <div class="connector-v">&#8595;</div>
+            <div class="node node-red">1 Maschine</div>
+          </div>
+        </div>
+        <div class="takeaway takeaway-amber">3 Aufgaben = 3 physische Server noetig! Viel Hardware fuer wenig Auslastung.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 3: Der Serverraum -->
+  <section class="scene" id="scene-3">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">3</div> Szene</div>
+      <h2>Der Serverraum</h2>
+      <p class="lead">Viele Server brauchen viel Platz, Strom und Kuehlung</p>
+      <div class="glass">
+        <div class="flex-center" style="gap:2rem;">
+          <div class="rack-group">
+            <div class="rack">
+              <div class="rack-u">SRV</div><div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+              <div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+              <div class="rack-label">Rack 1</div>
+            </div>
+            <div class="rack">
+              <div class="rack-u">SRV</div><div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+              <div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+              <div class="rack-label">Rack 2</div>
+            </div>
+            <div class="rack">
+              <div class="rack-u">SRV</div><div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+              <div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+              <div class="rack-label">Rack 3</div>
+            </div>
+            <div style="display:flex;align-items:center;color:var(--text-dim);font-size:1.5rem;">...</div>
+          </div>
+          <div class="cost-stack stagger" id="stagger-3">
+            <div class="cost-item">&#9889; Stromverbrauch</div>
+            <div class="cost-item">&#10052; Kuehlung</div>
+            <div class="cost-item">&#127970; Platz / Miete</div>
+            <div class="cost-item">&#128104;&#8205;&#128187; IT-Personal</div>
+          </div>
+        </div>
+        <div class="takeaway takeaway-amber">Hohe Kosten, viel Aufwand, wenig Flexibilitaet</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 4: Virtualisierung -->
+  <section class="scene" id="scene-4">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">4</div> Szene</div>
+      <h2>Virtualisierung</h2>
+      <p class="lead">Ab ca. 2000: Ein physischer Server, viele virtuelle Maschinen</p>
+      <div class="glass">
+        <div style="max-width:600px; margin:0 auto;">
+          <div class="node node-green" style="border-radius:12px 12px 0 0; border-bottom:none;">
+            Physischer Server (Hardware)
+          </div>
+          <div class="node node-orange" style="border-radius:0; border-top:none; border-bottom:none;">
+            Hypervisor (VMware, Hyper-V)
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0;">
+            <div class="node node-blue" style="border-radius:0 0 0 12px; border-right:none;">VM 1<small>DNS</small></div>
+            <div class="node node-purple" style="border-radius:0;">VM 2<small>Dateien</small></div>
+            <div class="node node-cyan" style="border-radius:0 0 12px 0; border-left:none;">VM 3<small>Mail</small></div>
+          </div>
+        </div>
+        <div class="metaphor">
+          <div class="metaphor-icon">&#127970;</div>
+          <div><strong style="color:#fde68a;">Wie ein Mehrfamilienhaus:</strong> Ein Gebaeude, viele Wohnungen</div>
+        </div>
+        <div class="takeaway takeaway-green">Bessere Auslastung, weniger Hardware!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 5: Moderne Rechenzentren -->
+  <section class="scene" id="scene-5">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">5</div> Szene</div>
+      <h2>Moderne Rechenzentren</h2>
+      <p class="lead">Riesige Rechenzentren der Cloud-Anbieter</p>
+      <div class="glass">
+        <div style="background:rgba(34,197,94,0.04); border:1px solid rgba(34,197,94,0.12); border-radius:12px; padding:1rem; margin-bottom:1.5rem;">
+          <div style="font-weight:600; color:#86efac; margin-bottom:0.5rem; font-size:0.9rem;">Cloud-Rechenzentrum</div>
+          <div style="display:flex; gap:3px; flex-wrap:wrap;">
+            <div class="rack-u">SRV</div><div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+            <div class="rack-u">SRV</div><div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+            <div class="rack-u">SRV</div><div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+            <div class="rack-u">SRV</div><div class="rack-u">SRV</div><div class="rack-u">SRV</div>
+            <span style="display:flex;align-items:center;color:var(--text-dim);font-size:0.75rem;padding:0 6px;">... tausende weitere</span>
+          </div>
+        </div>
+        <div class="g3 stagger" id="stagger-5">
+          <div class="node node-blue node-large">Microsoft<small>Azure</small></div>
+          <div class="node node-orange node-large">Amazon<small>AWS</small></div>
+          <div class="node node-green node-large">Google<small>Cloud</small></div>
+        </div>
+        <div class="takeaway takeaway-amber">Statt eigene Server zu kaufen, mietet man Rechenleistung bei Profis</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 6: IaaS -->
+  <section class="scene" id="scene-6">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">6</div> Szene</div>
+      <h2>Infrastructure as a Service</h2>
+      <p class="lead">IaaS — Infrastruktur mieten</p>
+      <div class="glass">
+        <div class="flex-center" style="gap:1.5rem; margin-bottom:1rem;">
+          <div class="node node-blue node-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 6px;display:block;"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
+            Nutzer
+          </div>
+          <div class="connector">&#8594; bestellt &#8594;</div>
+          <div style="background:rgba(99,102,241,0.06); border:1px dashed rgba(99,102,241,0.25); border-radius:16px; padding:1.25rem; text-align:center;">
+            <div style="font-weight:600; color:var(--accent-2); margin-bottom:0.75rem; font-size:0.9rem;">&#9729; Cloud</div>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center;">
+              <div class="node node-blue">Windows<small>Server</small></div>
+              <div class="node node-green">Linux<small>Server</small></div>
+              <div class="node node-purple">Speicher</div>
+            </div>
+          </div>
+        </div>
+        <div class="metaphor">
+          <div class="metaphor-icon">&#128663;</div>
+          <div><strong style="color:#fde68a;">Wie ein Mietwagen:</strong> Sie fahren, aber kuemmern sich nicht um die Werkstatt</div>
+        </div>
+        <div class="takeaway takeaway-green">Virtuelle Maschinen auf Knopfdruck</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 7: PaaS -->
+  <section class="scene" id="scene-7">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">7</div> Szene</div>
+      <h2>Platform as a Service</h2>
+      <p class="lead">PaaS — Plattformen mieten</p>
+      <div class="glass">
+        <div style="color:var(--purple); font-weight:500; font-size:0.9rem; margin-bottom:1rem;">Fertige Plattform-Dienste:</div>
+        <div class="g3 stagger" id="stagger-7" style="margin-bottom:1rem;">
+          <div class="node node-purple">Datenbank<small>Azure SQL</small></div>
+          <div class="node node-blue">App-Plattform<small>App Service</small></div>
+          <div class="node node-green">Identitaet<small>Entra ID</small></div>
+        </div>
+        <div class="node node-orange" style="width:100%;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline-block;vertical-align:middle;margin-right:8px;"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20M9 3v18"/></svg>
+          Container (Docker) — Leichtgewichtige Software-Pakete
+        </div>
+        <div class="metaphor">
+          <div class="metaphor-icon">&#127968;</div>
+          <div><strong style="color:#fde68a;">Wie eine moeblierte Wohnung:</strong> Kueche ist fertig, Sie muessen nur noch kochen!</div>
+        </div>
+        <div class="takeaway takeaway-green">Weniger Verwaltungsaufwand, mehr Fokus auf Fachlichkeit</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 8: SaaS -->
+  <section class="scene" id="scene-8">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">8</div> Szene</div>
+      <h2>Software as a Service</h2>
+      <p class="lead">SaaS — Fertige Software nutzen</p>
+      <div class="glass">
+        <div class="flex-center" style="gap:1.5rem; margin-bottom:1rem;">
+          <div class="node node-blue node-large">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 6px;display:block;"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
+            Nutzer
+          </div>
+          <div class="connector">&#8594; nutzt &#8594;</div>
+          <div class="stagger" id="stagger-8" style="display:flex; flex-direction:column; gap:0.75rem;">
+            <div class="node node-blue">Microsoft 365</div>
+            <div class="node node-green">Salesforce</div>
+            <div class="node node-orange">Teams / Zoom</div>
+          </div>
+        </div>
+        <div class="metaphor">
+          <div class="metaphor-icon">&#127869;</div>
+          <div><strong style="color:#fde68a;">Wie ein Restaurant:</strong> Sie bestellen das fertige Essen. Kein Kochen, kein Abwaschen!</div>
+        </div>
+        <div class="takeaway takeaway-green">Einfach im Browser oeffnen und loslegen</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 9: Vergleich -->
+  <section class="scene" id="scene-9">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num">9</div> Szene</div>
+      <h2>Vergleich der Modelle</h2>
+      <p class="lead">Wer kuemmert sich um was?</p>
+      <div class="glass">
+        <div class="comp-table">
+          <div class="comp-cell comp-header"></div>
+          <div class="comp-cell comp-header">Eigenes RZ</div>
+          <div class="comp-cell comp-header">IaaS</div>
+          <div class="comp-cell comp-header">PaaS</div>
+          <div class="comp-cell comp-header">SaaS</div>
+
+          <div class="comp-cell comp-label">Software</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+
+          <div class="comp-cell comp-label">Plattform</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+
+          <div class="comp-cell comp-label">Betriebssystem</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+
+          <div class="comp-cell comp-label">Server</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+
+          <div class="comp-cell comp-label">Netzwerk</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+
+          <div class="comp-cell comp-label">Gebaeude</div>
+          <div class="comp-cell comp-you">Sie</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+          <div class="comp-cell comp-them">Anbieter</div>
+        </div>
+        <div style="display:flex; gap:1.5rem; justify-content:center; margin:1.25rem 0 0;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-dim);">
+            <span style="display:inline-block;width:14px;height:14px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:3px;"></span> Sie verwalten
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-dim);">
+            <span style="display:inline-block;width:14px;height:14px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:3px;"></span> Anbieter verwaltet
+          </div>
+        </div>
+        <div class="takeaway takeaway-amber">Je mehr Cloud, desto weniger Eigenverantwortung</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Szene 10: KV Recklinghausen -->
+  <section class="scene" id="scene-10">
+    <div class="scene-inner">
+      <div class="scene-label"><div class="num" style="background:var(--blue);">10</div> Szene</div>
+      <h2>Kreisverwaltung Recklinghausen</h2>
+      <p class="lead">Der Weg in die Cloud</p>
+      <div class="glass" style="border-color:rgba(59,130,246,0.2);">
+        <div class="g2" style="margin-bottom:2rem;">
+          <div>
+            <div style="font-weight:700; font-size:1.1rem; margin-bottom:1rem; color:var(--text-bright);">Heute</div>
+            <div class="node node-orange" style="margin-bottom:0.75rem;">Eigene Server<small>(On-Premise)</small></div>
+            <div class="node node-blue">Wenige SaaS-Dienste</div>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:1.1rem; margin-bottom:1rem; color:var(--text-bright);">Zukunft</div>
+            <div style="border:2px dashed rgba(59,130,246,0.3); border-radius:12px; padding:1rem;">
+              <div class="node node-orange" style="margin-bottom:0.5rem; font-size:0.85rem;">Eigene Server (reduziert)</div>
+              <div class="node node-purple" style="margin-bottom:0.5rem; font-size:0.85rem;">Cloud-Dienste (IaaS/PaaS)</div>
+              <div class="node node-blue" style="font-size:0.85rem;">SaaS (Microsoft 365 etc.)</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-weight:600; font-size:1rem; margin-bottom:0.75rem; color:var(--text-bright);">Vorteile der Cloud-Strategie:</div>
+        <div class="benefits stagger" id="stagger-10">
+          <div class="benefit">
+            <div class="benefit-icon" style="background:rgba(34,197,94,0.1); color:#86efac;">&#8599;</div>
+            <span>Skalierbarkeit bei Bedarf</span>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon" style="background:rgba(59,130,246,0.1); color:#93c5fd;">&#128274;</div>
+            <span>Mehr Sicherheit durch Profis</span>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon" style="background:rgba(167,139,250,0.1); color:#c4b5fd;">&#9881;</div>
+            <span>Weniger Hardwareverwaltung</span>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon" style="background:rgba(249,115,22,0.1); color:#fdba74;">&#9889;</div>
+            <span>Schnellere Bereitstellung</span>
+          </div>
+        </div>
+        <div class="takeaway takeaway-blue" style="margin-top:1.5rem; font-size:1.1rem;">
+          Hybrid-Modell: Das Beste aus eigener IT und Cloud kombinieren
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Kreisverwaltung Recklinghausen &middot; IT-Abteilung &middot; Cloud-Strategie 2026
+  </footer>
+
+  <script>
+    // Particles
+    const particlesEl = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (8 + Math.random() * 15) + 's';
+      p.style.animationDelay = Math.random() * 10 + 's';
+      p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+      particlesEl.appendChild(p);
+    }
+
+    // Navigation dots
+    const scenes = ['Start','Computer','Aufgabe','Serverraum','Virtualisierung','Rechenzentren','IaaS','PaaS','SaaS','Vergleich','KV Recklinghausen'];
+    const navDots = document.getElementById('navDots');
+    scenes.forEach((name, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      dot.dataset.index = i;
+      dot.innerHTML = '<span class="tooltip">' + name + '</span>';
+      dot.addEventListener('click', () => {
+        document.getElementById('scene-' + i).scrollIntoView({ behavior: 'smooth' });
+      });
+      navDots.appendChild(dot);
+    });
+
+    // Intersection Observer for scene animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const inner = entry.target.querySelector('.scene-inner');
+          if (inner) inner.classList.add('visible');
+          // Trigger stagger animations
+          entry.target.querySelectorAll('.stagger').forEach(el => el.classList.add('visible'));
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.scene').forEach(s => observer.observe(s));
+
+    // Hero is always visible
+    document.querySelector('.hero .scene-inner')?.classList.add('visible');
+
+    // Progress bar + active nav dot
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrolled = window.scrollY;
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = Math.min((scrolled / max) * 100, 100);
+          document.getElementById('progress').style.width = pct + '%';
+
+          // Update active dot
+          let activeIdx = 0;
+          document.querySelectorAll('[id^="scene-"]').forEach((section, idx) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.5) activeIdx = idx;
+          });
+          document.querySelectorAll('.nav-dot').forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === activeIdx);
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  </script>
+</body>
+</html>
