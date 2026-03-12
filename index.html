@@ -1,504 +1,440 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Was ist Cloud Computing? — Kreisverwaltung Recklinghausen</title>
-  <meta name="description" content="Eine visuelle Erklaerung von Cloud Computing">
+  <meta name="description" content="Eine visuelle Erklaerung von Cloud Computing fuer die Kreisverwaltung Recklinghausen">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Virgil&family=Architects+Daughter&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --chalk: #e8e4df;
-      --chalk-dim: rgba(232, 228, 223, 0.5);
-      --chalk-faint: rgba(232, 228, 223, 0.15);
-      --board: #1a1d23;
-      --board-light: #22262e;
-      --blue: #74b9ff;
-      --green: #55efc4;
-      --orange: #ffeaa7;
-      --pink: #fd79a8;
-      --purple: #a29bfe;
-      --red: #ff7675;
-      --cyan: #81ecec;
-      --yellow: #fdcb6e;
-      --font-hand: 'Caveat', 'Architects Daughter', cursive;
-      --font-body: 'Architects Daughter', 'Caveat', cursive;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+
+      /* Light theme */
+      --bg: #f5f5f0;
+      --bg-card: #ffffff;
+      --bg-card-hover: #fafaf8;
+      --bg-insight: #fffbeb;
+      --text: #1a1a2e;
+      --text-secondary: #4a4a68;
+      --text-muted: #8888a0;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.15);
+      --shadow: 0 2px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
+
+      --blue: #3b82f6;
+      --blue-bg: rgba(59,130,246,0.08);
+      --green: #10b981;
+      --green-bg: rgba(16,185,129,0.08);
+      --orange: #f59e0b;
+      --orange-bg: rgba(245,158,11,0.08);
+      --purple: #8b5cf6;
+      --purple-bg: rgba(139,92,246,0.08);
+      --red: #ef4444;
+      --red-bg: rgba(239,68,68,0.08);
+      --cyan: #06b6d4;
+      --cyan-bg: rgba(6,182,212,0.08);
+      --amber: #d97706;
+      --amber-bg: rgba(217,119,6,0.06);
+
+      --insight-border: #f59e0b;
+      --insight-bg: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03));
+      --insight-text: #92400e;
+      --insight-icon: #f59e0b;
+
+      --nav-bg: rgba(255,255,255,0.85);
+      --nav-dot: rgba(0,0,0,0.15);
+      --nav-dot-active: #3b82f6;
+
+      --gradient-hero: linear-gradient(180deg, rgba(59,130,246,0.06) 0%, transparent 60%);
+      --grid-color: rgba(0,0,0,0.03);
     }
 
-    html { scroll-behavior: smooth; }
+    [data-theme="dark"] {
+      --bg: #0c0c1d;
+      --bg-card: #141428;
+      --bg-card-hover: #1a1a36;
+      --bg-insight: #1e1a0f;
+      --text: #e8e8f0;
+      --text-secondary: #a0a0b8;
+      --text-muted: #606078;
+      --border: rgba(255,255,255,0.06);
+      --border-strong: rgba(255,255,255,0.12);
+      --shadow: 0 2px 20px rgba(0,0,0,0.3);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+
+      --blue: #60a5fa;
+      --blue-bg: rgba(96,165,250,0.1);
+      --green: #34d399;
+      --green-bg: rgba(52,211,153,0.1);
+      --orange: #fbbf24;
+      --orange-bg: rgba(251,191,36,0.1);
+      --purple: #a78bfa;
+      --purple-bg: rgba(167,139,250,0.1);
+      --red: #f87171;
+      --red-bg: rgba(248,113,113,0.1);
+      --cyan: #22d3ee;
+      --cyan-bg: rgba(34,211,238,0.1);
+      --amber: #fbbf24;
+      --amber-bg: rgba(251,191,36,0.08);
+
+      --insight-border: #fbbf24;
+      --insight-bg: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(251,191,36,0.03));
+      --insight-text: #fde68a;
+      --insight-icon: #fbbf24;
+
+      --nav-bg: rgba(20,20,40,0.85);
+      --nav-dot: rgba(255,255,255,0.15);
+      --nav-dot-active: #60a5fa;
+
+      --gradient-hero: linear-gradient(180deg, rgba(96,165,250,0.08) 0%, transparent 60%);
+      --grid-color: rgba(255,255,255,0.02);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
+    }
 
     body {
       font-family: var(--font-body);
-      background: var(--board);
-      color: var(--chalk);
+      background: var(--bg);
+      color: var(--text);
       overflow-x: hidden;
-      cursor: default;
+      line-height: 1.6;
+      transition: background 0.4s ease, color 0.4s ease;
     }
 
-    /* Chalkboard texture */
+    /* Grid background */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(255,255,255,0.003) 2px,
-          rgba(255,255,255,0.003) 4px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 3px,
-          rgba(255,255,255,0.002) 3px,
-          rgba(255,255,255,0.002) 6px
-        );
+      background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 60px 60px;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Chalk dust canvas */
-    #chalkCanvas {
+    /* ── Theme toggle ── */
+    .theme-toggle {
       position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Scene counter / progress pencil */
-    .pencil-progress {
-      position: fixed;
-      left: 2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 100;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      cursor: pointer;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 0;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
-    .pencil-track {
-      width: 3px;
-      height: 300px;
-      background: var(--chalk-faint);
-      border-radius: 2px;
-      position: relative;
-      overflow: hidden;
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-lg);
     }
-    .pencil-fill {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      background: var(--orange);
-      border-radius: 2px;
-      transition: height 0.4s ease;
-      box-shadow: 0 0 8px rgba(253, 203, 110, 0.4);
+    .theme-toggle svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.3s;
     }
-    .pencil-label {
-      font-family: var(--font-hand);
-      font-size: 1rem;
-      color: var(--chalk-dim);
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      margin-top: 12px;
-      letter-spacing: 0.05em;
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+    /* ── Keyboard hint ── */
+    .kb-hint {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      box-shadow: var(--shadow);
+      opacity: 0.7;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+    }
+    .kb-hint kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 4px;
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
     }
 
-    /* Nav dots - sketchy circles */
-    .sketch-nav {
+    /* ── Navigation dots ── */
+    .nav-dots {
       position: fixed;
       right: 1.5rem;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 100;
+      z-index: 150;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
-    .sketch-dot {
-      width: 18px;
-      height: 18px;
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--nav-dot);
       cursor: pointer;
-      opacity: 0.3;
-      transition: opacity 0.3s, transform 0.3s;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    .sketch-dot.active {
-      opacity: 1;
-      transform: scale(1.3);
+    .nav-dot.active {
+      background: var(--nav-dot-active);
+      transform: scale(1.4);
+      box-shadow: 0 0 12px rgba(96,165,250,0.4);
     }
-    .sketch-dot:hover { opacity: 0.7; }
-    .sketch-dot circle {
-      fill: none;
-      stroke: var(--chalk);
-      stroke-width: 1.5;
+    .nav-dot:hover { transform: scale(1.3); background: var(--nav-dot-active); opacity: 0.7; }
+    .nav-dot .tooltip {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--text);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      box-shadow: var(--shadow);
     }
-    .sketch-dot.active circle {
-      fill: var(--orange);
-      stroke: var(--orange);
+    .nav-dot:hover .tooltip { opacity: 1; }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+      z-index: 300;
+      transition: width 0.15s ease-out;
+      width: 0%;
     }
 
-    /* Sections */
+    /* ── Sections ── */
     section {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 5rem 2rem;
+      padding: 6rem 2rem;
       position: relative;
       z-index: 2;
+      scroll-snap-align: start;
     }
 
-    .scene-wrap {
-      max-width: 960px;
+    .scene-content {
+      max-width: 1000px;
       width: 100%;
       position: relative;
     }
 
-    /* Drawing animation base */
-    .draw-line {
-      stroke-dasharray: var(--len, 1000);
-      stroke-dashoffset: var(--len, 1000);
-      transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .visible .draw-line {
-      stroke-dashoffset: 0;
-    }
-
-    /* Scene number — big sketchy circle */
-    .scene-num-wrap {
-      position: absolute;
-      top: -20px;
-      right: -10px;
-      width: 80px;
-      height: 80px;
-      z-index: 5;
-    }
-    .scene-num-wrap svg { width: 80px; height: 80px; }
-    .scene-num-wrap .num-text {
-      font-family: var(--font-hand);
-      font-size: 2rem;
-      font-weight: 700;
-      fill: var(--orange);
-    }
-
-    /* Heading styles */
+    /* ── Typography ── */
     h1 {
-      font-family: var(--font-hand);
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 800;
       line-height: 1.05;
-      color: var(--chalk);
-      position: relative;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--text) 0%, var(--blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
+
     h2 {
-      font-family: var(--font-hand);
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 600;
-      color: var(--chalk);
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text);
       margin-bottom: 0.5rem;
-      position: relative;
-      display: inline-block;
-    }
-    /* Underline scribble */
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: -5%;
-      width: 110%;
-      height: 8px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8'%3E%3Cpath d='M0 5 Q25 0, 50 4 T100 3 T150 5 T200 3' stroke='%23fdcb6e' stroke-width='2' fill='none' opacity='0.6'/%3E%3C/svg%3E") repeat-x;
-      background-size: 200px 8px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
     }
 
     .lead {
-      font-family: var(--font-body);
-      font-size: 1.15rem;
-      color: var(--chalk-dim);
-      margin-top: 0.75rem;
+      font-size: 1.25rem;
+      color: var(--text-secondary);
       margin-bottom: 2.5rem;
+      max-width: 600px;
     }
 
-    /* Sketch card — wobbly border via SVG */
-    .sketch-card {
-      position: relative;
+    /* ── Cards ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 2.5rem;
-      margin-top: 1rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
     }
-    .sketch-card > .card-border {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .sketch-card > .card-border rect {
-      fill: rgba(255,255,255,0.02);
-      stroke: var(--chalk-faint);
-      stroke-width: 1.5;
-      rx: 8;
+    .card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-lg);
     }
 
-    /* Sketch boxes */
-    .sbox {
-      position: relative;
-      padding: 1rem 1.5rem;
-      text-align: center;
-      font-family: var(--font-hand);
-      font-size: 1.2rem;
-      font-weight: 500;
-      border-radius: 0;
-      transition: transform 0.3s;
-    }
-    .sbox:hover { transform: rotate(-1deg) scale(1.03); }
-    .sbox small {
-      display: block;
-      font-size: 0.9rem;
-      opacity: 0.65;
-      font-weight: 400;
-      margin-top: 2px;
-    }
-    .sbox svg.box-border {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    /* Color variants */
-    .c-blue { color: var(--blue); }
-    .c-green { color: var(--green); }
-    .c-orange { color: var(--orange); }
-    .c-pink { color: var(--pink); }
-    .c-purple { color: var(--purple); }
-    .c-red { color: var(--red); }
-    .c-cyan { color: var(--cyan); }
-    .c-yellow { color: var(--yellow); }
-    .c-chalk { color: var(--chalk); }
-
-    .fill-blue { fill: rgba(116, 185, 255, 0.08); stroke: var(--blue); }
-    .fill-green { fill: rgba(85, 239, 196, 0.08); stroke: var(--green); }
-    .fill-orange { fill: rgba(255, 234, 167, 0.08); stroke: var(--orange); }
-    .fill-pink { fill: rgba(253, 121, 168, 0.08); stroke: var(--pink); }
-    .fill-purple { fill: rgba(162, 155, 254, 0.08); stroke: var(--purple); }
-    .fill-red { fill: rgba(255, 118, 117, 0.08); stroke: var(--red); }
-    .fill-cyan { fill: rgba(129, 236, 236, 0.08); stroke: var(--cyan); }
-    .fill-yellow { fill: rgba(253, 203, 110, 0.08); stroke: var(--yellow); }
-
-    /* Hand-drawn arrow */
-    .sketch-arrow {
-      overflow: visible;
-      position: relative;
-      z-index: 3;
-    }
-    .sketch-arrow path {
-      fill: none;
-      stroke: var(--chalk-dim);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* Metaphor bubble */
-    .metaphor-bubble {
+    /* ── Insight cards (metaphor callouts) ── */
+    .insight-card {
       position: relative;
       margin-top: 2rem;
-      padding: 1.25rem 1.5rem;
-      font-family: var(--font-hand);
-      font-size: 1.15rem;
-      color: var(--yellow);
+      padding: 1.5rem 2rem 1.5rem 4.5rem;
+      background: var(--insight-bg);
+      border: 2px solid var(--insight-border);
+      border-radius: 14px;
+      color: var(--insight-text);
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 1.5;
+      overflow: hidden;
     }
-    .metaphor-bubble .bubble-bg {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .metaphor-bubble .bubble-bg path {
-      fill: rgba(253, 203, 110, 0.05);
-      stroke: rgba(253, 203, 110, 0.3);
-      stroke-width: 1.5;
-    }
-
-    /* Takeaway — underlined */
-    .takeaway-sketch {
-      margin-top: 1.5rem;
-      padding: 1rem 0;
-      text-align: center;
-      font-family: var(--font-hand);
-      font-size: 1.3rem;
-      font-weight: 600;
-      position: relative;
-    }
-    .takeaway-sketch::before {
+    .insight-card::before {
       content: '';
       position: absolute;
+      left: 0;
+      top: 0;
       bottom: 0;
-      left: 10%;
-      width: 80%;
-      height: 3px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 6'%3E%3Cpath d='M0 3 Q30 0, 60 3 T120 3 T180 3 T240 3 T300 3' stroke='%2355efc4' stroke-width='2' fill='none' opacity='0.5'/%3E%3C/svg%3E") repeat-x;
-      background-size: 300px 6px;
+      width: 4px;
+      background: var(--insight-border);
+      border-radius: 14px 0 0 14px;
+    }
+    .insight-card .insight-icon {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      color: var(--insight-icon);
+    }
+    .insight-card strong {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 2px;
     }
 
-    /* Layout helpers */
-    .row { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; align-items: center; }
-    .col { display: flex; flex-direction: column; gap: 1rem; align-items: center; }
-    .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-
-    /* Element reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    /* ── Takeaway ── */
+    .takeaway {
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 10px;
     }
-    .reveal.vis {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal:nth-child(2) { transition-delay: 0.15s; }
-    .reveal:nth-child(3) { transition-delay: 0.3s; }
-    .reveal:nth-child(4) { transition-delay: 0.45s; }
-    .reveal:nth-child(5) { transition-delay: 0.6s; }
-    .reveal:nth-child(6) { transition-delay: 0.75s; }
 
-    /* SVG drawing animation for illustrations */
-    .illustration {
+    /* ── SVG Diagrams ── */
+    .diagram {
       width: 100%;
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
       display: block;
     }
-    .illustration path,
-    .illustration rect,
-    .illustration circle,
-    .illustration ellipse,
-    .illustration line,
-    .illustration polyline {
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .diagram text {
+      font-family: var(--font-display);
     }
     .draw-on {
       stroke-dasharray: var(--len);
       stroke-dashoffset: var(--len);
-      transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .scene-wrap.visible .draw-on {
-      stroke-dashoffset: 0;
     }
 
-    /* Fade + draw combined */
-    .scene-wrap {
-      opacity: 0;
-      transform: translateY(40px) rotate(-0.5deg);
-      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .scene-wrap.visible {
-      opacity: 1;
-      transform: translateY(0) rotate(0deg);
-    }
+    /* ── Color utilities ── */
+    .c-blue { color: var(--blue); }
+    .c-green { color: var(--green); }
+    .c-orange { color: var(--orange); }
+    .c-purple { color: var(--purple); }
+    .c-red { color: var(--red); }
+    .c-cyan { color: var(--cyan); }
 
-    /* Hero specific */
-    .hero-section {
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-cloud-svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 400px;
-      opacity: 0.06;
-    }
-    .hero-cloud-svg path {
-      stroke: var(--chalk);
-      stroke-width: 2;
-      fill: none;
-    }
-    .hero-sub {
-      font-family: var(--font-body);
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      color: var(--chalk-dim);
-      max-width: 550px;
-      margin-top: 1.5rem;
-      line-height: 1.7;
-    }
-    .hero-scroll {
-      position: absolute;
-      bottom: 3rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--font-hand);
-      font-size: 1.1rem;
-      color: var(--chalk-dim);
-      animation: bobble 2.5s ease-in-out infinite;
-    }
-    @keyframes bobble {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(10px); }
-    }
-    .hero-scroll svg {
-      display: block;
-      margin: 8px auto 0;
-    }
+    .bg-blue { background: var(--blue-bg); }
+    .bg-green { background: var(--green-bg); }
+    .bg-orange { background: var(--orange-bg); }
+    .bg-purple { background: var(--purple-bg); }
+    .bg-red { background: var(--red-bg); }
+    .bg-cyan { background: var(--cyan-bg); }
 
-    /* Comparison table sketch */
+    /* ── Comparison grid ── */
     .comp-grid {
       display: grid;
-      grid-template-columns: 1.4fr repeat(4, 1fr);
-      gap: 4px;
-      font-family: var(--font-hand);
-      font-size: 1.05rem;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: 3px;
+      font-size: 1rem;
     }
     .comp-cell {
-      padding: 0.7rem 0.5rem;
+      padding: 0.8rem 0.6rem;
       text-align: center;
-      position: relative;
+      border-radius: 6px;
+      transition: transform 0.2s;
     }
     .comp-cell.header {
+      font-family: var(--font-display);
       font-weight: 600;
-      font-size: 1.1rem;
-      color: var(--chalk);
+      font-size: 1.05rem;
     }
     .comp-cell.label {
       text-align: left;
-      color: var(--chalk-dim);
-      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
     }
     .comp-cell.you {
       color: var(--red);
-    }
-    .comp-cell.you::before {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      background: rgba(255, 118, 117, 0.06);
-      border-radius: 4px;
-      z-index: -1;
+      background: var(--red-bg);
+      font-weight: 500;
     }
     .comp-cell.them {
       color: var(--green);
-    }
-    .comp-cell.them::before {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      background: rgba(85, 239, 196, 0.06);
-      border-radius: 4px;
-      z-index: -1;
+      background: var(--green-bg);
+      font-weight: 500;
     }
 
-    /* Rack illustration */
-    .rack-svg { display: inline-block; }
-
-    /* Benefits */
+    /* ── Benefits ── */
     .benefits-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -508,545 +444,548 @@
     .benefit-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 0.75rem 1rem;
-      font-family: var(--font-hand);
-      font-size: 1.15rem;
-      position: relative;
+      gap: 14px;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
     }
-    .benefit-item .b-icon {
-      width: 36px;
-      height: 36px;
+    .benefit-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .benefit-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
+      font-size: 1.3rem;
     }
 
-    /* Doodle decorations */
-    .doodle {
+    /* ── Hero ── */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
       position: absolute;
+      inset: 0;
+      background: var(--gradient-hero);
       pointer-events: none;
-      opacity: 0.08;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--blue-bg);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: 1.35rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-top: 1.5rem;
+      line-height: 1.7;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .hero-scroll svg {
+      display: block;
+      margin: 8px auto 0;
+      animation: bounce 2s ease-in-out infinite;
+      stroke: var(--text-muted);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
     }
 
-    /* Footer */
+    /* ── Hero cloud SVG background ── */
+    .hero-cloud {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 450px;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    /* ── Footer ── */
     footer {
       text-align: center;
       padding: 3rem 1rem;
-      font-family: var(--font-hand);
-      font-size: 1rem;
-      color: var(--chalk-dim);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text-muted);
       position: relative;
       z-index: 2;
+      border-top: 1px solid var(--border);
     }
 
-    /* Responsive */
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .g3 { grid-template-columns: 1fr; }
-      .g2 { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.25rem; }
+      .card { padding: 1.75rem; }
       .benefits-grid { grid-template-columns: 1fr; }
-      .comp-grid { font-size: 0.85rem; }
-      .sketch-card { padding: 1.5rem; }
-      .pencil-progress { left: 0.5rem; }
-      .sketch-nav { right: 0.5rem; gap: 10px; }
-      .scene-num-wrap { width: 60px; height: 60px; top: -15px; right: -5px; }
-      .scene-num-wrap svg { width: 60px; height: 60px; }
-      .scene-num-wrap .num-text { font-size: 1.5rem; }
-      section { padding: 3rem 1rem; }
-      .row { gap: 1rem; }
+      .comp-grid { font-size: 0.8rem; }
+      .comp-cell { padding: 0.5rem 0.3rem; }
+      .nav-dots { right: 0.75rem; gap: 10px; }
+      .nav-dot .tooltip { display: none; }
+      .theme-toggle { top: 1rem; right: 1rem; width: 40px; height: 40px; }
+      .kb-hint { display: none; }
+      .insight-card { padding-left: 3.5rem; font-size: 1.05rem; }
     }
     @media (max-width: 480px) {
-      .sketch-nav { display: none; }
-      .pencil-progress { display: none; }
+      .nav-dots { display: none; }
+      h2 { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
 
-<canvas id="chalkCanvas"></canvas>
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
 
-<!-- Pencil progress -->
-<div class="pencil-progress">
-  <div class="pencil-track">
-    <div class="pencil-fill" id="pencilFill"></div>
-  </div>
-  <span class="pencil-label" id="pencilLabel">1 / 10</span>
+<!-- Theme toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln" title="Theme wechseln">
+  <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<!-- Keyboard hint -->
+<div class="kb-hint">
+  <kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigation
 </div>
 
-<!-- Sketch nav -->
-<nav class="sketch-nav" id="sketchNav"></nav>
+<!-- Nav dots -->
+<nav class="nav-dots" id="navDots"></nav>
 
 <!-- ==================== HERO ==================== -->
 <section class="hero-section" id="scene-0">
-  <svg class="hero-cloud-svg" viewBox="0 0 600 400">
-    <path class="draw-on" style="--len:800" d="M150 280 Q100 280, 80 250 Q50 220, 70 190 Q60 160, 90 140 Q100 100, 150 90 Q180 60, 230 70 Q270 40, 320 60 Q360 40, 400 70 Q440 50, 470 80 Q520 70, 530 110 Q560 120, 550 160 Q570 190, 540 220 Q550 250, 520 270 Q500 290, 460 280 Z" />
-    <path class="draw-on" style="--len:400;transition-delay:0.5s" d="M200 280 L200 340 M300 280 L300 350 M400 280 L400 330" stroke-dasharray="8 6" />
+  <svg class="hero-cloud" viewBox="0 0 700 450">
+    <path d="M180 310 Q120 310, 95 270 Q50 240, 80 200 Q65 160, 105 135 Q120 85, 180 75 Q215 40, 275 50 Q320 20, 380 40 Q430 15, 480 50 Q530 30, 560 65 Q610 55, 620 100 Q660 115, 645 165 Q670 200, 640 240 Q660 275, 620 300 Q595 325, 550 310 Z" stroke="var(--blue)" stroke-width="2" fill="none"/>
+    <path d="M240 310 L240 390 M350 310 L350 400 M460 310 L460 380" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="8 6" fill="none"/>
   </svg>
 
-  <div class="scene-wrap visible" style="text-align:center;">
+  <div class="scene-content" style="text-align:center; position:relative;">
+    <div class="hero-badge">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+      Kreisverwaltung Recklinghausen
+    </div>
     <h1>Was ist Cloud<br>Computing?</h1>
-    <p class="hero-sub">Eine visuelle Reise vom einzelnen Computer bis zur modernen Cloud — verstaendlich erklaert fuer die Kreisverwaltung Recklinghausen.</p>
+    <p class="hero-sub">Eine visuelle Reise vom einzelnen Computer bis zur modernen Cloud — verstaendlich erklaert.</p>
   </div>
 
   <div class="hero-scroll">
     nach unten scrollen
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
       <path d="M7 10 L12 16 L17 10" stroke-linecap="round"/>
     </svg>
   </div>
 </section>
 
-<!-- ==================== SZENE 1 ==================== -->
+<!-- ==================== SZENE 1: Ein einzelner Computer ==================== -->
 <section id="scene-1">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">1</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Ein einzelner Computer</h2>
     <p class="lead">Was steckt eigentlich in einem Computer?</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
-      </svg>
-
-      <!-- Computer illustration -->
-      <svg class="illustration" viewBox="0 0 700 260">
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 280">
         <!-- Monitor -->
-        <rect x="250" y="10" width="200" height="130" rx="8" fill="rgba(85,239,196,0.06)" stroke="var(--green)" stroke-width="2.5" class="draw-on" style="--len:700"/>
-        <!-- Screen glow -->
-        <rect x="265" y="25" width="170" height="95" rx="3" fill="rgba(85,239,196,0.04)" stroke="var(--green)" stroke-width="1" opacity="0.5" class="draw-on" style="--len:540;transition-delay:0.3s"/>
+        <rect x="300" y="10" width="200" height="130" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2.5" class="draw-on" style="--len:700"/>
+        <rect x="318" y="28" width="164" height="90" rx="6" fill="none" stroke="var(--green)" stroke-width="1" opacity="0.4" class="draw-on" style="--len:520"/>
+        <!-- Screen content lines -->
+        <line x1="330" y1="50" x2="410" y2="50" stroke="var(--green)" stroke-width="1.5" opacity="0.3" class="draw-on" style="--len:80"/>
+        <line x1="330" y1="65" x2="460" y2="65" stroke="var(--green)" stroke-width="1.5" opacity="0.2" class="draw-on" style="--len:130"/>
+        <line x1="330" y1="80" x2="440" y2="80" stroke="var(--green)" stroke-width="1.5" opacity="0.2" class="draw-on" style="--len:110"/>
         <!-- Stand -->
-        <path d="M330 140 L330 165 L370 165 L370 140" stroke="var(--green)" stroke-width="2" fill="none" class="draw-on" style="--len:80;transition-delay:0.5s"/>
-        <path d="M310 165 L390 168" stroke="var(--green)" stroke-width="2.5" fill="none" class="draw-on" style="--len:80;transition-delay:0.6s"/>
-        <!-- Label -->
-        <text x="350" y="85" text-anchor="middle" font-family="Caveat, cursive" font-size="22" fill="var(--green)" opacity="0">Raspberry Pi</text>
-        <text x="350" y="110" text-anchor="middle" font-family="Caveat, cursive" font-size="15" fill="var(--green)" opacity="0">(Mini-Computer)</text>
-
-        <!-- Arrow down -->
-        <path d="M350 180 Q345 200, 350 215" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:40;transition-delay:0.8s"/>
-        <path d="M343 208 L350 218 L357 208" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:20;transition-delay:1s"/>
-
-        <!-- CPU -->
-        <rect x="80" y="195" width="140" height="55" rx="6" fill="rgba(116,185,255,0.06)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:0.7s"/>
-        <!-- RAM -->
-        <rect x="280" y="195" width="140" height="55" rx="6" fill="rgba(255,234,167,0.06)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:0.9s"/>
-        <!-- Disk -->
-        <rect x="480" y="195" width="140" height="55" rx="6" fill="rgba(162,155,254,0.06)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:1.1s"/>
-
-        <!-- Labels -->
-        <text x="150" y="220" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--blue)" opacity="0" class="fade-text">Prozessor</text>
-        <text x="150" y="240" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--blue)" opacity="0" class="fade-text">(CPU)</text>
-        <text x="350" y="220" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--orange)" opacity="0" class="fade-text">Arbeitsspeicher</text>
-        <text x="350" y="240" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--orange)" opacity="0" class="fade-text">(RAM)</text>
-        <text x="550" y="220" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--purple)" opacity="0" class="fade-text">Festplatte</text>
-        <text x="550" y="240" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--purple)" opacity="0" class="fade-text">(Speicher)</text>
+        <path d="M375 140 L375 168 L425 168 L425 140" stroke="var(--green)" stroke-width="2" fill="none" class="draw-on" style="--len:90"/>
+        <line x1="355" y1="168" x2="445" y2="168" stroke="var(--green)" stroke-width="2.5" class="draw-on" style="--len:90"/>
 
         <!-- Connecting lines -->
-        <path d="M250 180 Q200 190, 150 195" stroke="var(--chalk-dim)" stroke-width="1.5" fill="none" stroke-dasharray="5 4" class="draw-on" style="--len:120;transition-delay:1.3s"/>
-        <path d="M450 180 Q500 190, 550 195" stroke="var(--chalk-dim)" stroke-width="1.5" fill="none" stroke-dasharray="5 4" class="draw-on" style="--len:120;transition-delay:1.3s"/>
+        <path d="M300 200 Q250 195, 190 210" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 4" class="draw-on" style="--len:130" opacity="0.5"/>
+        <path d="M400 185 L400 210" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 4" class="draw-on" style="--len:30" opacity="0.5"/>
+        <path d="M500 200 Q550 195, 610 210" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 4" class="draw-on" style="--len:130" opacity="0.5"/>
+
+        <!-- CPU -->
+        <rect x="80" y="210" width="180" height="60" rx="10" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:500"/>
+        <text x="170" y="238" text-anchor="middle" font-size="18" font-weight="600" fill="var(--blue)">Prozessor</text>
+        <text x="170" y="258" text-anchor="middle" font-size="13" fill="var(--blue)" opacity="0.7">CPU</text>
+
+        <!-- RAM -->
+        <rect x="310" y="210" width="180" height="60" rx="10" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:500"/>
+        <text x="400" y="238" text-anchor="middle" font-size="18" font-weight="600" fill="var(--orange)">Arbeitsspeicher</text>
+        <text x="400" y="258" text-anchor="middle" font-size="13" fill="var(--orange)" opacity="0.7">RAM</text>
+
+        <!-- Disk -->
+        <rect x="540" y="210" width="180" height="60" rx="10" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:500"/>
+        <text x="630" y="238" text-anchor="middle" font-size="18" font-weight="600" fill="var(--purple)">Festplatte</text>
+        <text x="630" y="258" text-anchor="middle" font-size="13" fill="var(--purple)" opacity="0.7">Speicher</text>
       </svg>
 
-      <div class="takeaway-sketch c-orange" style="margin-top:1rem;">
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
         Jeder Computer besteht aus diesen 3 Grundbausteinen
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 2 ==================== -->
+<!-- ==================== SZENE 2: Ein Computer, eine Aufgabe ==================== -->
 <section id="scene-2">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">2</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Ein Computer, eine Aufgabe</h2>
     <p class="lead">Frueher hatte jeder Server genau einen Job</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 260">
+        <!-- Tasks -->
+        <rect x="40" y="15" width="210" height="75" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:580"/>
+        <text x="145" y="48" text-anchor="middle" font-size="19" font-weight="600" fill="var(--blue)">DNS-Server</text>
+        <text x="145" y="72" text-anchor="middle" font-size="14" fill="var(--blue)" opacity="0.7">Namen aufloesen</text>
+
+        <rect x="295" y="15" width="210" height="75" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:580"/>
+        <text x="400" y="48" text-anchor="middle" font-size="19" font-weight="600" fill="var(--green)">Datei-Server</text>
+        <text x="400" y="72" text-anchor="middle" font-size="14" fill="var(--green)" opacity="0.7">Dateien speichern</text>
+
+        <rect x="550" y="15" width="210" height="75" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:580"/>
+        <text x="655" y="48" text-anchor="middle" font-size="19" font-weight="600" fill="var(--orange)">Mail-Server</text>
+        <text x="655" y="72" text-anchor="middle" font-size="14" fill="var(--orange)" opacity="0.7">E-Mails senden</text>
+
+        <!-- Arrows -->
+        <line x1="145" y1="95" x2="145" y2="145" stroke="var(--text-muted)" stroke-width="2" class="draw-on" style="--len:50" opacity="0.5"/>
+        <path d="M138 138 L145 150 L152 138" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:25" opacity="0.5"/>
+        <line x1="400" y1="95" x2="400" y2="145" stroke="var(--text-muted)" stroke-width="2" class="draw-on" style="--len:50" opacity="0.5"/>
+        <path d="M393 138 L400 150 L407 138" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:25" opacity="0.5"/>
+        <line x1="655" y1="95" x2="655" y2="145" stroke="var(--text-muted)" stroke-width="2" class="draw-on" style="--len:50" opacity="0.5"/>
+        <path d="M648 138 L655 150 L662 138" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:25" opacity="0.5"/>
+
+        <!-- Machines -->
+        <rect x="60" y="155" width="170" height="60" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:470"/>
+        <text x="145" y="191" text-anchor="middle" font-size="17" font-weight="600" fill="var(--red)">Maschine 1</text>
+
+        <rect x="315" y="155" width="170" height="60" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:470"/>
+        <text x="400" y="191" text-anchor="middle" font-size="17" font-weight="600" fill="var(--red)">Maschine 2</text>
+
+        <rect x="570" y="155" width="170" height="60" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:470"/>
+        <text x="655" y="191" text-anchor="middle" font-size="17" font-weight="600" fill="var(--red)">Maschine 3</text>
+
+        <!-- Emphasis line -->
+        <ellipse cx="400" cy="240" rx="280" ry="14" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.3" class="draw-on" style="--len:900"/>
       </svg>
 
-      <svg class="illustration" viewBox="0 0 700 240">
-        <!-- DNS Server -->
-        <rect x="30" y="10" width="180" height="70" rx="8" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:520"/>
-        <text x="120" y="42" text-anchor="middle" font-family="Caveat, cursive" font-size="19" fill="var(--blue)" class="fade-text" opacity="0">DNS-Server</text>
-        <text x="120" y="62" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--blue)" class="fade-text" opacity="0">Namen aufloesen</text>
-
-        <!-- File Server -->
-        <rect x="260" y="10" width="180" height="70" rx="8" fill="rgba(85,239,196,0.08)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:520;transition-delay:0.2s"/>
-        <text x="350" y="42" text-anchor="middle" font-family="Caveat, cursive" font-size="19" fill="var(--green)" class="fade-text" opacity="0">Datei-Server</text>
-        <text x="350" y="62" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--green)" class="fade-text" opacity="0">Dateien speichern</text>
-
-        <!-- Mail Server -->
-        <rect x="490" y="10" width="180" height="70" rx="8" fill="rgba(255,234,167,0.08)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:520;transition-delay:0.4s"/>
-        <text x="580" y="42" text-anchor="middle" font-family="Caveat, cursive" font-size="19" fill="var(--orange)" class="fade-text" opacity="0">Mail-Server</text>
-        <text x="580" y="62" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--orange)" class="fade-text" opacity="0">E-Mails senden</text>
-
-        <!-- Arrows down -->
-        <path d="M120 85 Q118 110, 120 140" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:60;transition-delay:0.6s"/>
-        <path d="M113 133 L120 143 L127 133" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:20;transition-delay:0.8s"/>
-        <path d="M350 85 Q348 110, 350 140" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:60;transition-delay:0.7s"/>
-        <path d="M343 133 L350 143 L357 133" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:20;transition-delay:0.9s"/>
-        <path d="M580 85 Q578 110, 580 140" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:60;transition-delay:0.8s"/>
-        <path d="M573 133 L580 143 L587 133" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:20;transition-delay:1s"/>
-
-        <!-- Machine boxes -->
-        <rect x="50" y="150" width="140" height="55" rx="6" fill="rgba(255,118,117,0.08)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:0.9s"/>
-        <text x="120" y="183" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--red)" class="fade-text" opacity="0">1 Maschine</text>
-
-        <rect x="280" y="150" width="140" height="55" rx="6" fill="rgba(255,118,117,0.08)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:1s"/>
-        <text x="350" y="183" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--red)" class="fade-text" opacity="0">1 Maschine</text>
-
-        <rect x="510" y="150" width="140" height="55" rx="6" fill="rgba(255,118,117,0.08)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:1.1s"/>
-        <text x="580" y="183" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--red)" class="fade-text" opacity="0">1 Maschine</text>
-
-        <!-- Scribble emphasis -->
-        <ellipse cx="350" cy="230" rx="200" ry="16" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.4" class="draw-on" style="--len:700;transition-delay:1.3s"/>
-      </svg>
-
-      <div class="takeaway-sketch c-red">
+      <div class="takeaway bg-red c-red">
         3 Aufgaben = 3 physische Server! Viel Hardware, wenig Auslastung.
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 3 ==================== -->
+<!-- ==================== SZENE 3: Der Serverraum ==================== -->
 <section id="scene-3">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">3</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Der Serverraum</h2>
     <p class="lead">Viele Server brauchen viel Platz, Strom und Kuehlung</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
-      </svg>
-
-      <svg class="illustration" viewBox="0 0 700 230">
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 250">
         <!-- Rack 1 -->
-        <rect x="60" y="10" width="70" height="170" rx="4" fill="rgba(85,239,196,0.04)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:500"/>
-        <rect x="68" y="20" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.3s"/>
-        <rect x="68" y="42" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.35s"/>
-        <rect x="68" y="64" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.4s"/>
-        <rect x="68" y="86" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.45s"/>
-        <rect x="68" y="108" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.5s"/>
-        <rect x="68" y="130" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.55s"/>
-        <text x="95" y="200" text-anchor="middle" font-family="Caveat, cursive" font-size="15" fill="var(--green)" class="fade-text" opacity="0">Rack 1</text>
+        <rect x="70" y="10" width="80" height="180" rx="6" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:540"/>
+        <rect x="80" y="22" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="80" y="46" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="80" y="70" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="80" y="94" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="80" y="118" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="80" y="142" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <text x="110" y="210" text-anchor="middle" font-size="14" fill="var(--green)" font-weight="500">Rack 1</text>
 
         <!-- Rack 2 -->
-        <rect x="160" y="10" width="70" height="170" rx="4" fill="rgba(85,239,196,0.04)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:500;transition-delay:0.15s"/>
-        <rect x="168" y="20" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.5s"/>
-        <rect x="168" y="42" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.55s"/>
-        <rect x="168" y="64" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.6s"/>
-        <rect x="168" y="86" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.65s"/>
-        <rect x="168" y="108" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.7s"/>
-        <rect x="168" y="130" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.75s"/>
-        <text x="195" y="200" text-anchor="middle" font-family="Caveat, cursive" font-size="15" fill="var(--green)" class="fade-text" opacity="0">Rack 2</text>
+        <rect x="175" y="10" width="80" height="180" rx="6" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:540"/>
+        <rect x="185" y="22" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="185" y="46" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="185" y="70" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="185" y="94" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="185" y="118" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="185" y="142" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <text x="215" y="210" text-anchor="middle" font-size="14" fill="var(--green)" font-weight="500">Rack 2</text>
 
         <!-- Rack 3 -->
-        <rect x="260" y="10" width="70" height="170" rx="4" fill="rgba(85,239,196,0.04)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:500;transition-delay:0.3s"/>
-        <rect x="268" y="20" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.7s"/>
-        <rect x="268" y="42" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.75s"/>
-        <rect x="268" y="64" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.8s"/>
-        <rect x="268" y="86" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.85s"/>
-        <rect x="268" y="108" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.9s"/>
-        <rect x="268" y="130" width="54" height="18" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:150;transition-delay:0.95s"/>
-        <text x="295" y="200" text-anchor="middle" font-family="Caveat, cursive" font-size="15" fill="var(--green)" class="fade-text" opacity="0">Rack 3</text>
+        <rect x="280" y="10" width="80" height="180" rx="6" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:540"/>
+        <rect x="290" y="22" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="290" y="46" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="290" y="70" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="290" y="94" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="290" y="118" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <rect x="290" y="142" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
+        <text x="320" y="210" text-anchor="middle" font-size="14" fill="var(--green)" font-weight="500">Rack 3</text>
 
-        <!-- Dots -->
-        <text x="365" y="100" font-family="Caveat, cursive" font-size="28" fill="var(--chalk-dim)" class="fade-text" opacity="0">. . .</text>
+        <text x="400" y="105" font-size="24" fill="var(--text-muted)">...</text>
 
         <!-- Cost items -->
-        <rect x="430" y="15" width="230" height="35" rx="6" fill="rgba(255,118,117,0.06)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:540;transition-delay:0.6s"/>
-        <text x="545" y="39" text-anchor="middle" font-family="Caveat, cursive" font-size="16" fill="var(--red)" class="fade-text" opacity="0">Stromverbrauch</text>
+        <rect x="480" y="18" width="270" height="42" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:640"/>
+        <text x="615" y="46" text-anchor="middle" font-size="16" font-weight="500" fill="var(--red)">Stromverbrauch</text>
 
-        <rect x="430" y="58" width="230" height="35" rx="6" fill="rgba(255,118,117,0.06)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:540;transition-delay:0.75s"/>
-        <text x="545" y="82" text-anchor="middle" font-family="Caveat, cursive" font-size="16" fill="var(--red)" class="fade-text" opacity="0">Kuehlung</text>
+        <rect x="480" y="68" width="270" height="42" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:640"/>
+        <text x="615" y="96" text-anchor="middle" font-size="16" font-weight="500" fill="var(--red)">Kuehlung</text>
 
-        <rect x="430" y="101" width="230" height="35" rx="6" fill="rgba(255,118,117,0.06)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:540;transition-delay:0.9s"/>
-        <text x="545" y="125" text-anchor="middle" font-family="Caveat, cursive" font-size="16" fill="var(--red)" class="fade-text" opacity="0">Platz / Miete</text>
+        <rect x="480" y="118" width="270" height="42" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:640"/>
+        <text x="615" y="146" text-anchor="middle" font-size="16" font-weight="500" fill="var(--red)">Platz / Miete</text>
 
-        <rect x="430" y="144" width="230" height="35" rx="6" fill="rgba(255,118,117,0.06)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:540;transition-delay:1.05s"/>
-        <text x="545" y="168" text-anchor="middle" font-family="Caveat, cursive" font-size="16" fill="var(--red)" class="fade-text" opacity="0">IT-Personal</text>
+        <rect x="480" y="168" width="270" height="42" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:640"/>
+        <text x="615" y="196" text-anchor="middle" font-size="16" font-weight="500" fill="var(--red)">IT-Personal</text>
       </svg>
 
-      <div class="takeaway-sketch c-red">
+      <div class="takeaway bg-red c-red">
         Hohe Kosten, viel Aufwand, wenig Flexibilitaet
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 4 ==================== -->
+<!-- ==================== SZENE 4: Virtualisierung ==================== -->
 <section id="scene-4">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">4</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Virtualisierung</h2>
     <p class="lead">Ab ca. 2000: Ein physischer Server, viele virtuelle Maschinen</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 270">
+        <!-- Physical server -->
+        <rect x="100" y="10" width="600" height="250" rx="14" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2.5" class="draw-on" style="--len:1720"/>
+        <text x="140" y="40" font-size="15" font-weight="500" fill="var(--green)" opacity="0.8">Physischer Server (Hardware)</text>
+
+        <!-- Hypervisor -->
+        <rect x="130" y="55" width="540" height="48" rx="10" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:1180"/>
+        <text x="400" y="86" text-anchor="middle" font-size="17" font-weight="600" fill="var(--orange)">Hypervisor (VMware, Hyper-V)</text>
+
+        <!-- VMs -->
+        <rect x="140" y="125" width="165" height="110" rx="10" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:560"/>
+        <text x="222" y="168" text-anchor="middle" font-size="20" font-weight="600" fill="var(--blue)">VM 1</text>
+        <text x="222" y="195" text-anchor="middle" font-size="14" fill="var(--blue)" opacity="0.7">DNS-Server</text>
+
+        <rect x="318" y="125" width="165" height="110" rx="10" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:560"/>
+        <text x="400" y="168" text-anchor="middle" font-size="20" font-weight="600" fill="var(--purple)">VM 2</text>
+        <text x="400" y="195" text-anchor="middle" font-size="14" fill="var(--purple)" opacity="0.7">Datei-Server</text>
+
+        <rect x="496" y="125" width="165" height="110" rx="10" fill="var(--cyan-bg)" stroke="var(--cyan)" stroke-width="2" class="draw-on" style="--len:560"/>
+        <text x="578" y="168" text-anchor="middle" font-size="20" font-weight="600" fill="var(--cyan)">VM 3</text>
+        <text x="578" y="195" text-anchor="middle" font-size="14" fill="var(--cyan)" opacity="0.7">Mail-Server</text>
       </svg>
 
-      <svg class="illustration" viewBox="0 0 700 250">
-        <!-- Physical server outer -->
-        <rect x="100" y="10" width="500" height="230" rx="10" fill="rgba(85,239,196,0.04)" stroke="var(--green)" stroke-width="2.5" class="draw-on" style="--len:1500"/>
-        <text x="130" y="40" font-family="Caveat, cursive" font-size="16" fill="var(--green)" class="fade-text" opacity="0">Physischer Server (Hardware)</text>
-
-        <!-- Hypervisor bar -->
-        <rect x="120" y="55" width="460" height="40" rx="6" fill="rgba(255,234,167,0.08)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:1020;transition-delay:0.3s"/>
-        <text x="350" y="82" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--orange)" class="fade-text" opacity="0">Hypervisor (VMware, Hyper-V)</text>
-
-        <!-- VM boxes -->
-        <rect x="130" y="115" width="140" height="90" rx="8" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:470;transition-delay:0.5s"/>
-        <text x="200" y="155" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--blue)" class="fade-text" opacity="0">VM 1</text>
-        <text x="200" y="180" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--blue)" class="fade-text" opacity="0">DNS-Server</text>
-
-        <rect x="280" y="115" width="140" height="90" rx="8" fill="rgba(162,155,254,0.08)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:470;transition-delay:0.7s"/>
-        <text x="350" y="155" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--purple)" class="fade-text" opacity="0">VM 2</text>
-        <text x="350" y="180" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--purple)" class="fade-text" opacity="0">Datei-Server</text>
-
-        <rect x="430" y="115" width="140" height="90" rx="8" fill="rgba(129,236,236,0.08)" stroke="var(--cyan)" stroke-width="2" class="draw-on" style="--len:470;transition-delay:0.9s"/>
-        <text x="500" y="155" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--cyan)" class="fade-text" opacity="0">VM 3</text>
-        <text x="500" y="180" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--cyan)" class="fade-text" opacity="0">Mail-Server</text>
-      </svg>
-
-      <div class="metaphor-bubble">
-        <svg class="bubble-bg" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-          <path d="M3 10 Q3 3, 10 3 L90 3 Q97 3, 97 10 L97 85 Q97 92, 90 92 L25 92 L15 99 L18 92 L10 92 Q3 92, 3 85 Z" class="draw-on" style="--len:500"/>
-        </svg>
-        <strong class="c-yellow">Wie ein Mehrfamilienhaus:</strong> Ein Gebaeude, viele Wohnungen
+      <div class="insight-card">
+        <svg class="insight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <strong>Wie ein Mehrfamilienhaus:</strong>
+        Ein Gebaeude, viele Wohnungen — alle teilen sich Fundament und Dach.
       </div>
 
-      <div class="takeaway-sketch c-green">
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
         Bessere Auslastung, weniger Hardware!
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 5 ==================== -->
+<!-- ==================== SZENE 5: Moderne Rechenzentren ==================== -->
 <section id="scene-5">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">5</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Moderne Rechenzentren</h2>
     <p class="lead">Riesige Rechenzentren der Cloud-Anbieter</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 260">
+        <!-- Cloud shape -->
+        <path d="M120 175 Q70 175, 55 140 Q20 115, 55 85 Q50 50, 100 42 Q125 10, 185 22 Q230 -5, 300 12 Q350 -8, 410 10 Q460 -5, 510 20 Q560 5, 590 35 Q640 22, 650 60 Q685 75, 670 115 Q695 145, 660 170 Q645 185, 605 175 Z" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2.5" class="draw-on" style="--len:2000"/>
+        <text x="380" y="55" text-anchor="middle" font-size="18" font-weight="600" fill="var(--blue)">Cloud-Rechenzentrum</text>
+
+        <!-- Mini servers inside -->
+        <rect x="145" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="185" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="225" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="275" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="315" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="355" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="405" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="445" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="485" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <rect x="525" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
+        <text x="590" y="110" font-size="16" fill="var(--text-muted)">...</text>
+
+        <!-- Providers -->
+        <rect x="100" y="200" width="185" height="48" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:480"/>
+        <text x="192" y="230" text-anchor="middle" font-size="17" font-weight="600" fill="var(--blue)">Microsoft Azure</text>
+
+        <rect x="308" y="200" width="185" height="48" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:480"/>
+        <text x="400" y="230" text-anchor="middle" font-size="17" font-weight="600" fill="var(--orange)">Amazon AWS</text>
+
+        <rect x="516" y="200" width="185" height="48" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:480"/>
+        <text x="608" y="230" text-anchor="middle" font-size="17" font-weight="600" fill="var(--green)">Google Cloud</text>
       </svg>
 
-      <svg class="illustration" viewBox="0 0 700 230">
-        <!-- Big cloud -->
-        <path d="M100 160 Q60 160, 50 130 Q20 110, 50 80 Q50 50, 90 45 Q110 20, 160 30 Q200 5, 260 20 Q300 5, 350 15 Q400 0, 440 25 Q480 10, 510 35 Q560 20, 580 50 Q620 45, 630 75 Q660 90, 640 120 Q660 145, 630 160 Z" fill="rgba(116,185,255,0.05)" stroke="var(--blue)" stroke-width="2.5" class="draw-on" style="--len:1800"/>
-        <text x="350" y="70" text-anchor="middle" font-family="Caveat, cursive" font-size="20" fill="var(--blue)" class="fade-text" opacity="0">Cloud-Rechenzentrum</text>
-
-        <!-- Mini server icons inside cloud -->
-        <rect x="130" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.5s"/>
-        <rect x="170" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.55s"/>
-        <rect x="210" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.6s"/>
-        <rect x="260" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.65s"/>
-        <rect x="300" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.7s"/>
-        <rect x="340" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.75s"/>
-        <rect x="390" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.8s"/>
-        <rect x="430" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.85s"/>
-        <rect x="470" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.9s"/>
-        <rect x="510" y="85" width="30" height="45" rx="2" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1" class="draw-on" style="--len:160;transition-delay:0.95s"/>
-        <text x="570" y="115" font-family="Caveat, cursive" font-size="14" fill="var(--chalk-dim)" class="fade-text" opacity="0">...</text>
-
-        <!-- Provider logos -->
-        <rect x="100" y="180" width="150" height="40" rx="8" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:1s"/>
-        <text x="175" y="205" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--blue)" class="fade-text" opacity="0">Microsoft Azure</text>
-
-        <rect x="275" y="180" width="150" height="40" rx="8" fill="rgba(255,234,167,0.08)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:1.1s"/>
-        <text x="350" y="205" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--orange)" class="fade-text" opacity="0">Amazon AWS</text>
-
-        <rect x="450" y="180" width="150" height="40" rx="8" fill="rgba(85,239,196,0.08)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:400;transition-delay:1.2s"/>
-        <text x="525" y="205" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--green)" class="fade-text" opacity="0">Google Cloud</text>
-      </svg>
-
-      <div class="takeaway-sketch c-orange">
+      <div class="takeaway bg-orange c-orange">
         Statt eigene Server zu kaufen, mietet man Rechenleistung bei Profis
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 6 ==================== -->
+<!-- ==================== SZENE 6: IaaS ==================== -->
 <section id="scene-6">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">6</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Infrastructure as a Service</h2>
     <p class="lead">IaaS — Infrastruktur mieten</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
-      </svg>
-
-      <svg class="illustration" viewBox="0 0 700 200">
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 200">
         <!-- User -->
-        <circle cx="100" cy="70" r="25" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:160"/>
-        <circle cx="100" cy="55" r="12" fill="none" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:80;transition-delay:0.2s"/>
-        <text x="100" y="115" text-anchor="middle" font-family="Caveat, cursive" font-size="16" fill="var(--blue)" class="fade-text" opacity="0">Nutzer</text>
+        <circle cx="120" cy="75" r="30" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:200"/>
+        <circle cx="120" cy="56" r="13" fill="none" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:85"/>
+        <text x="120" y="125" text-anchor="middle" font-size="16" font-weight="500" fill="var(--blue)">Nutzer</text>
 
         <!-- Arrow -->
-        <path d="M140 70 Q200 65, 260 70" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:130;transition-delay:0.4s"/>
-        <path d="M250 63 L262 70 L250 77" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:25;transition-delay:0.6s"/>
-        <text x="200" y="58" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--chalk-dim)" class="fade-text" opacity="0">bestellt</text>
+        <path d="M165 75 Q230 68, 290 75" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:140"/>
+        <path d="M280 68 L293 75 L280 82" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:28"/>
+        <text x="225" y="62" text-anchor="middle" font-size="14" font-weight="500" fill="var(--text-muted)">bestellt</text>
 
-        <!-- Cloud bubble -->
-        <path d="M300 140 Q270 140, 265 115 Q250 100, 265 80 Q265 55, 300 50 Q320 30, 370 35 Q400 20, 440 35 Q470 25, 490 45 Q520 35, 530 55 Q550 50, 550 75 Q570 85, 555 105 Q565 120, 545 135 Q535 145, 510 140 Z" fill="rgba(162,155,254,0.04)" stroke="var(--purple)" stroke-width="2" stroke-dasharray="6 4" class="draw-on" style="--len:1000;transition-delay:0.3s"/>
-        <text x="410" y="60" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--purple)" class="fade-text" opacity="0">Cloud</text>
+        <!-- Cloud -->
+        <path d="M330 150 Q295 150, 287 120 Q265 105, 287 82 Q287 55, 325 48 Q348 25, 405 32 Q440 12, 485 28 Q520 15, 545 42 Q575 32, 588 58 Q615 52, 615 80 Q635 92, 620 115 Q632 135, 610 148 Q598 158, 570 150 Z" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="2" stroke-dasharray="8 5" class="draw-on" style="--len:1200"/>
+        <text x="455" y="55" text-anchor="middle" font-size="14" font-weight="500" fill="var(--purple)" opacity="0.8">Cloud</text>
 
-        <!-- Items inside -->
-        <rect x="310" y="75" width="90" height="45" rx="6" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:280;transition-delay:0.7s"/>
-        <text x="355" y="103" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="var(--blue)" class="fade-text" opacity="0">Windows</text>
+        <!-- Items inside cloud -->
+        <rect x="340" y="72" width="115" height="52" rx="8" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:340"/>
+        <text x="397" y="104" text-anchor="middle" font-size="15" font-weight="500" fill="var(--blue)">Windows</text>
 
-        <rect x="410" y="75" width="90" height="45" rx="6" fill="rgba(85,239,196,0.08)" stroke="var(--green)" stroke-width="1.5" class="draw-on" style="--len:280;transition-delay:0.85s"/>
-        <text x="455" y="103" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="var(--green)" class="fade-text" opacity="0">Linux</text>
+        <rect x="465" y="72" width="115" height="52" rx="8" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.5" class="draw-on" style="--len:340"/>
+        <text x="522" y="104" text-anchor="middle" font-size="15" font-weight="500" fill="var(--green)">Linux</text>
       </svg>
 
-      <div class="metaphor-bubble">
-        <svg class="bubble-bg" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-          <path d="M3 10 Q3 3, 10 3 L90 3 Q97 3, 97 10 L97 85 Q97 92, 90 92 L25 92 L15 99 L18 92 L10 92 Q3 92, 3 85 Z" class="draw-on" style="--len:500"/>
-        </svg>
-        <strong class="c-yellow">Wie ein Mietwagen:</strong> Sie fahren, aber kuemmern sich nicht um die Werkstatt
+      <div class="insight-card">
+        <svg class="insight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/></svg>
+        <strong>Wie ein Mietwagen:</strong>
+        Du faehrst selbst, aber kuemerst dich nicht um die Werkstatt.
       </div>
 
-      <div class="takeaway-sketch c-green">
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
         Virtuelle Maschinen auf Knopfdruck
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 7 ==================== -->
+<!-- ==================== SZENE 7: PaaS ==================== -->
 <section id="scene-7">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">7</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Platform as a Service</h2>
     <p class="lead">PaaS — Plattformen mieten</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
-      </svg>
-
-      <svg class="illustration" viewBox="0 0 700 180">
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 200">
         <!-- Platform services -->
-        <rect x="50" y="15" width="180" height="65" rx="8" fill="rgba(162,155,254,0.08)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:500"/>
-        <text x="140" y="45" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--purple)" class="fade-text" opacity="0">Datenbank</text>
-        <text x="140" y="65" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="var(--purple)" class="fade-text" opacity="0">(Azure SQL)</text>
+        <rect x="50" y="15" width="210" height="72" rx="12" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:570"/>
+        <text x="155" y="48" text-anchor="middle" font-size="18" font-weight="600" fill="var(--purple)">Datenbank</text>
+        <text x="155" y="70" text-anchor="middle" font-size="13" fill="var(--purple)" opacity="0.7">Azure SQL</text>
 
-        <rect x="260" y="15" width="180" height="65" rx="8" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:500;transition-delay:0.2s"/>
-        <text x="350" y="45" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--blue)" class="fade-text" opacity="0">App-Plattform</text>
-        <text x="350" y="65" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="var(--blue)" class="fade-text" opacity="0">(App Service)</text>
+        <rect x="295" y="15" width="210" height="72" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:570"/>
+        <text x="400" y="48" text-anchor="middle" font-size="18" font-weight="600" fill="var(--blue)">App-Plattform</text>
+        <text x="400" y="70" text-anchor="middle" font-size="13" fill="var(--blue)" opacity="0.7">App Service</text>
 
-        <rect x="470" y="15" width="180" height="65" rx="8" fill="rgba(85,239,196,0.08)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:500;transition-delay:0.4s"/>
-        <text x="560" y="45" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--green)" class="fade-text" opacity="0">Identitaet</text>
-        <text x="560" y="65" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="var(--green)" class="fade-text" opacity="0">(Entra ID)</text>
+        <rect x="540" y="15" width="210" height="72" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:570"/>
+        <text x="645" y="48" text-anchor="middle" font-size="18" font-weight="600" fill="var(--green)">Identitaet</text>
+        <text x="645" y="70" text-anchor="middle" font-size="13" fill="var(--green)" opacity="0.7">Entra ID</text>
 
-        <!-- Docker bar -->
-        <rect x="80" y="110" width="540" height="50" rx="8" fill="rgba(255,234,167,0.06)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:1200;transition-delay:0.6s"/>
-        <text x="350" y="142" text-anchor="middle" font-family="Caveat, cursive" font-size="16" fill="var(--orange)" class="fade-text" opacity="0">Container (Docker) — Leichtgewichtige Software-Pakete</text>
+        <!-- Container bar -->
+        <rect x="80" y="120" width="640" height="58" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:1400"/>
+        <text x="400" y="157" text-anchor="middle" font-size="16" font-weight="600" fill="var(--orange)">Container (Docker) — Leichtgewichtige Software-Pakete</text>
       </svg>
 
-      <div class="metaphor-bubble">
-        <svg class="bubble-bg" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-          <path d="M3 10 Q3 3, 10 3 L90 3 Q97 3, 97 10 L97 85 Q97 92, 90 92 L25 92 L15 99 L18 92 L10 92 Q3 92, 3 85 Z" class="draw-on" style="--len:500"/>
-        </svg>
-        <strong class="c-yellow">Wie eine moeblierte Wohnung:</strong> Kueche ist fertig, Sie muessen nur noch kochen!
+      <div class="insight-card">
+        <svg class="insight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <strong>Wie eine moeblierte Wohnung:</strong>
+        Kueche ist fertig, du musst nur noch kochen!
       </div>
 
-      <div class="takeaway-sketch c-green">
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
         Weniger Verwaltungsaufwand, mehr Fokus auf Fachlichkeit
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 8 ==================== -->
+<!-- ==================== SZENE 8: SaaS ==================== -->
 <section id="scene-8">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">8</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Software as a Service</h2>
     <p class="lead">SaaS — Fertige Software nutzen</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
-      </svg>
-
-      <svg class="illustration" viewBox="0 0 700 180">
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 200">
         <!-- User -->
-        <circle cx="120" cy="90" r="30" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:200"/>
-        <circle cx="120" cy="72" r="14" fill="none" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:90;transition-delay:0.15s"/>
-        <text x="120" y="140" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--blue)" class="fade-text" opacity="0">Nutzer</text>
+        <circle cx="140" cy="100" r="35" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:230"/>
+        <circle cx="140" cy="78" r="15" fill="none" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:100"/>
+        <text x="140" y="155" text-anchor="middle" font-size="17" font-weight="500" fill="var(--blue)">Nutzer</text>
 
-        <!-- Arrow -->
-        <path d="M160 90 Q230 85, 300 55" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:150;transition-delay:0.3s"/>
-        <path d="M290 50 L302 53 L295 63" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:25;transition-delay:0.5s"/>
-        <path d="M160 90 Q230 90, 300 90" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:150;transition-delay:0.35s"/>
-        <path d="M290 83 L302 90 L290 97" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:25;transition-delay:0.55s"/>
-        <path d="M160 90 Q230 95, 300 125" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:150;transition-delay:0.4s"/>
-        <path d="M290 120 L302 127 L292 134" stroke="var(--chalk-dim)" stroke-width="2" fill="none" class="draw-on" style="--len:25;transition-delay:0.6s"/>
-        <text x="220" y="78" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="var(--chalk-dim)" class="fade-text" opacity="0">nutzt</text>
+        <!-- Arrows -->
+        <path d="M185 80 Q260 60, 340 55" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:170"/>
+        <path d="M330 48 L343 55 L330 62" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:28"/>
+        <path d="M185 100 Q260 98, 340 100" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:170"/>
+        <path d="M330 93 L343 100 L330 107" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:28"/>
+        <path d="M185 120 Q260 138, 340 145" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:170"/>
+        <path d="M330 138 L343 145 L330 152" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:28"/>
+        <text x="250" y="82" text-anchor="middle" font-size="14" font-weight="500" fill="var(--text-muted)">nutzt</text>
 
         <!-- Apps -->
-        <rect x="320" y="25" width="200" height="45" rx="8" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:500;transition-delay:0.5s"/>
-        <text x="420" y="54" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--blue)" class="fade-text" opacity="0">Microsoft 365</text>
+        <rect x="360" y="28" width="240" height="50" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:590"/>
+        <text x="480" y="60" text-anchor="middle" font-size="19" font-weight="600" fill="var(--blue)">Microsoft 365</text>
 
-        <rect x="320" y="80" width="200" height="45" rx="8" fill="rgba(85,239,196,0.08)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:500;transition-delay:0.65s"/>
-        <text x="420" y="109" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--green)" class="fade-text" opacity="0">Salesforce</text>
+        <rect x="360" y="88" width="240" height="50" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:590"/>
+        <text x="480" y="120" text-anchor="middle" font-size="19" font-weight="600" fill="var(--green)">Salesforce</text>
 
-        <rect x="320" y="135" width="200" height="45" rx="8" fill="rgba(255,234,167,0.08)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:500;transition-delay:0.8s"/>
-        <text x="420" y="164" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="var(--orange)" class="fade-text" opacity="0">Teams / Zoom</text>
+        <rect x="360" y="148" width="240" height="50" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:590"/>
+        <text x="480" y="180" text-anchor="middle" font-size="19" font-weight="600" fill="var(--orange)">Teams / Zoom</text>
       </svg>
 
-      <div class="metaphor-bubble">
-        <svg class="bubble-bg" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-          <path d="M3 10 Q3 3, 10 3 L90 3 Q97 3, 97 10 L97 85 Q97 92, 90 92 L25 92 L15 99 L18 92 L10 92 Q3 92, 3 85 Z" class="draw-on" style="--len:500"/>
-        </svg>
-        <strong class="c-yellow">Wie ein Restaurant:</strong> Sie bestellen das fertige Essen. Kein Kochen, kein Abwaschen!
+      <div class="insight-card">
+        <svg class="insight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        <strong>Wie ein Restaurant:</strong>
+        Du bestellst das fertige Essen. Kein Kochen, kein Abwaschen!
       </div>
 
-      <div class="takeaway-sketch c-green">
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
         Einfach im Browser oeffnen und loslegen
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 9 ==================== -->
+<!-- ==================== SZENE 9: Vergleich ==================== -->
 <section id="scene-9">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--orange)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle">9</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Vergleich der Modelle</h2>
     <p class="lead">Wer kuemmert sich um was?</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="var(--chalk-faint)" stroke-width="0.8" rx="3"/>
-      </svg>
-
+    <div class="card">
       <div class="comp-grid">
         <div class="comp-cell label"></div>
         <div class="comp-cell header">Eigenes RZ</div>
@@ -1055,113 +994,118 @@
         <div class="comp-cell header">SaaS</div>
 
         <div class="comp-cell label">Software</div>
-        <div class="comp-cell you">Sie</div>
-        <div class="comp-cell you">Sie</div>
-        <div class="comp-cell you">Sie</div>
+        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Du</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Plattform</div>
-        <div class="comp-cell you">Sie</div>
-        <div class="comp-cell you">Sie</div>
+        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Du</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Betriebssystem</div>
-        <div class="comp-cell you">Sie</div>
-        <div class="comp-cell you">Sie</div>
+        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Du</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Server</div>
-        <div class="comp-cell you">Sie</div>
+        <div class="comp-cell you">Du</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Netzwerk</div>
-        <div class="comp-cell you">Sie</div>
+        <div class="comp-cell you">Du</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Gebaeude</div>
-        <div class="comp-cell you">Sie</div>
+        <div class="comp-cell you">Du</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
       </div>
 
-      <div style="display:flex; gap:2rem; justify-content:center; margin:1.5rem 0 0; font-family:var(--font-hand); font-size:1rem;">
-        <span class="c-red">&#9724; Sie verwalten</span>
-        <span class="c-green">&#9724; Anbieter verwaltet</span>
+      <div style="display:flex; gap:2rem; justify-content:center; margin:1.5rem 0 0; font-size:0.95rem;">
+        <span class="c-red" style="display:flex;align-items:center;gap:6px;">
+          <span style="width:12px;height:12px;background:var(--red);border-radius:3px;display:inline-block;"></span> Du verwaltest
+        </span>
+        <span class="c-green" style="display:flex;align-items:center;gap:6px;">
+          <span style="width:12px;height:12px;background:var(--green);border-radius:3px;display:inline-block;"></span> Anbieter verwaltet
+        </span>
       </div>
 
-      <div class="takeaway-sketch c-orange">
+      <div class="takeaway bg-orange c-orange" style="margin-top:1.5rem;">
         Je mehr Cloud, desto weniger Eigenverantwortung
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 10 ==================== -->
+<!-- ==================== SZENE 10: KV Recklinghausen ==================== -->
 <section id="scene-10">
-  <div class="scene-wrap">
-    <div class="scene-num-wrap">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--blue)" stroke-width="2.5" class="draw-on" style="--len:210"/><text class="num-text" x="40" y="48" text-anchor="middle" fill="var(--blue)">10</text></svg>
-    </div>
+  <div class="scene-content">
     <h2>Kreisverwaltung Recklinghausen</h2>
     <p class="lead">Der Weg in die Cloud</p>
 
-    <div class="sketch-card">
-      <svg class="card-border" viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
-        <rect x="1" y="1" width="98" height="98" class="draw-on" style="--len:400" fill="rgba(255,255,255,0.015)" stroke="rgba(116,185,255,0.15)" stroke-width="1" rx="3"/>
-      </svg>
-
-      <svg class="illustration" viewBox="0 0 700 200">
+    <div class="card">
+      <svg class="diagram" viewBox="0 0 800 220">
         <!-- Today -->
-        <text x="170" y="25" text-anchor="middle" font-family="Caveat, cursive" font-size="22" font-weight="600" fill="var(--chalk)" class="fade-text" opacity="0">Heute</text>
-        <rect x="60" y="40" width="220" height="55" rx="8" fill="rgba(255,234,167,0.08)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:560"/>
-        <text x="170" y="73" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="var(--orange)" class="fade-text" opacity="0">Eigene Server (On-Premise)</text>
-        <rect x="60" y="105" width="220" height="45" rx="8" fill="rgba(116,185,255,0.08)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:540;transition-delay:0.2s"/>
-        <text x="170" y="133" text-anchor="middle" font-family="Caveat, cursive" font-size="15" fill="var(--blue)" class="fade-text" opacity="0">Wenige SaaS-Dienste</text>
+        <text x="190" y="25" text-anchor="middle" font-size="20" font-weight="700" fill="var(--text)">Heute</text>
+        <rect x="60" y="40" width="260" height="62" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:660"/>
+        <text x="190" y="78" text-anchor="middle" font-size="17" font-weight="600" fill="var(--orange)">Eigene Server (On-Premise)</text>
+        <rect x="60" y="112" width="260" height="50" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:640"/>
+        <text x="190" y="144" text-anchor="middle" font-size="15" font-weight="500" fill="var(--blue)">Wenige SaaS-Dienste</text>
 
-        <!-- Big arrow -->
-        <path d="M310 90 Q340 85, 370 90" stroke="var(--green)" stroke-width="3" fill="none" class="draw-on" style="--len:70;transition-delay:0.5s"/>
-        <path d="M360 82 L372 90 L360 98" stroke="var(--green)" stroke-width="3" fill="none" class="draw-on" style="--len:25;transition-delay:0.7s"/>
+        <!-- Arrow -->
+        <path d="M350 100 Q385 95, 420 100" stroke="var(--green)" stroke-width="3" fill="none" class="draw-on" style="--len:80"/>
+        <path d="M410 92 L423 100 L410 108" stroke="var(--green)" stroke-width="3" fill="none" class="draw-on" style="--len:28"/>
 
         <!-- Future -->
-        <text x="520" y="25" text-anchor="middle" font-family="Caveat, cursive" font-size="22" font-weight="600" fill="var(--chalk)" class="fade-text" opacity="0">Zukunft</text>
-        <rect x="400" y="35" width="240" height="130" rx="10" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="8 5" class="draw-on" style="--len:760;transition-delay:0.4s"/>
-        <rect x="415" y="45" width="210" height="32" rx="6" fill="rgba(255,234,167,0.06)" stroke="var(--orange)" stroke-width="1.5" class="draw-on" style="--len:490;transition-delay:0.6s"/>
-        <text x="520" y="67" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="var(--orange)" class="fade-text" opacity="0">Eigene Server (reduziert)</text>
-        <rect x="415" y="83" width="210" height="32" rx="6" fill="rgba(162,155,254,0.06)" stroke="var(--purple)" stroke-width="1.5" class="draw-on" style="--len:490;transition-delay:0.75s"/>
-        <text x="520" y="105" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="var(--purple)" class="fade-text" opacity="0">Cloud-Dienste (IaaS/PaaS)</text>
-        <rect x="415" y="121" width="210" height="32" rx="6" fill="rgba(116,185,255,0.06)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:490;transition-delay:0.9s"/>
-        <text x="520" y="143" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="var(--blue)" class="fade-text" opacity="0">SaaS (Microsoft 365 etc.)</text>
+        <text x="590" y="25" text-anchor="middle" font-size="20" font-weight="700" fill="var(--text)">Zukunft</text>
+        <rect x="450" y="35" width="280" height="150" rx="14" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="8 5" class="draw-on" style="--len:870"/>
+        <rect x="468" y="48" width="244" height="38" rx="8" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="1.5" class="draw-on" style="--len:570"/>
+        <text x="590" y="73" text-anchor="middle" font-size="14" font-weight="500" fill="var(--orange)">Eigene Server (reduziert)</text>
+        <rect x="468" y="92" width="244" height="38" rx="8" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5" class="draw-on" style="--len:570"/>
+        <text x="590" y="117" text-anchor="middle" font-size="14" font-weight="500" fill="var(--purple)">Cloud-Dienste (IaaS/PaaS)</text>
+        <rect x="468" y="136" width="244" height="38" rx="8" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:570"/>
+        <text x="590" y="161" text-anchor="middle" font-size="14" font-weight="500" fill="var(--blue)">SaaS (Microsoft 365 etc.)</text>
       </svg>
 
-      <div style="font-family:var(--font-hand); font-size:1.3rem; margin:1.5rem 0 0.75rem; color:var(--chalk);">Vorteile der Cloud-Strategie:</div>
+      <div style="font-family:var(--font-display); font-size:1.3rem; font-weight:600; margin:2rem 0 1rem; color:var(--text);">Vorteile der Cloud-Strategie:</div>
 
       <div class="benefits-grid">
-        <div class="benefit-item reveal c-green">
-          <svg class="b-icon" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="rgba(85,239,196,0.1)" stroke="var(--green)" stroke-width="1.5" class="draw-on" style="--len:100"/><path d="M12 18 L18 12 L24 18" stroke="var(--green)" stroke-width="2" fill="none" class="draw-on" style="--len:20;transition-delay:0.3s"/></svg>
-          Skalierbarkeit bei Bedarf
+        <div class="benefit-item">
+          <div class="benefit-icon bg-green c-green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <span>Skalierbarkeit bei Bedarf</span>
         </div>
-        <div class="benefit-item reveal c-blue">
-          <svg class="b-icon" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="rgba(116,185,255,0.1)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:100"/><rect x="14" y="14" width="8" height="10" rx="1" fill="none" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:40;transition-delay:0.3s"/></svg>
-          Mehr Sicherheit durch Profis
+        <div class="benefit-item">
+          <div class="benefit-icon bg-blue c-blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <span>Mehr Sicherheit durch Profis</span>
         </div>
-        <div class="benefit-item reveal c-purple">
-          <svg class="b-icon" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="rgba(162,155,254,0.1)" stroke="var(--purple)" stroke-width="1.5" class="draw-on" style="--len:100"/><circle cx="18" cy="18" r="6" fill="none" stroke="var(--purple)" stroke-width="1.5" class="draw-on" style="--len:40;transition-delay:0.3s"/></svg>
-          Weniger Hardwareverwaltung
+        <div class="benefit-item">
+          <div class="benefit-icon bg-purple c-purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <span>Weniger Hardwareverwaltung</span>
         </div>
-        <div class="benefit-item reveal c-orange">
-          <svg class="b-icon" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="rgba(255,234,167,0.1)" stroke="var(--orange)" stroke-width="1.5" class="draw-on" style="--len:100"/><path d="M18 11 L18 25 M13 18 L23 18" stroke="var(--orange)" stroke-width="2" fill="none" class="draw-on" style="--len:30;transition-delay:0.3s"/></svg>
-          Schnellere Bereitstellung
+        <div class="benefit-item">
+          <div class="benefit-icon bg-orange c-orange">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span>Schnellere Bereitstellung</span>
         </div>
       </div>
 
-      <div class="takeaway-sketch c-blue" style="font-size:1.4rem; margin-top:2rem;">
+      <div class="takeaway bg-blue c-blue" style="font-size:1.25rem; margin-top:2rem;">
         Hybrid-Modell: Das Beste aus eigener IT und Cloud kombinieren
       </div>
     </div>
@@ -1169,134 +1113,219 @@
 </section>
 
 <footer>
-  Kreisverwaltung Recklinghausen · IT-Abteilung · Cloud-Strategie 2026
+  Kreisverwaltung Recklinghausen &middot; 16.1 IT-Services &middot; Cloud-Strategie 2026
 </footer>
 
 <script>
-// ─── Chalk dust particles on canvas ───
-const canvas = document.getElementById('chalkCanvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let W, H;
+// ─── Theme toggle ───
+const html = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
 
-function resizeCanvas() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
+// Detect system preference
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+const savedTheme = localStorage.getItem('cloud-theme');
+if (savedTheme) {
+  html.dataset.theme = savedTheme;
+} else {
+  html.dataset.theme = prefersDark.matches ? 'dark' : 'light';
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-class ChalkParticle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.size = Math.random() * 1.5 + 0.5;
-    this.speedX = (Math.random() - 0.5) * 0.3;
-    this.speedY = (Math.random() - 0.5) * 0.15 - 0.1;
-    this.opacity = Math.random() * 0.12 + 0.03;
-    this.life = Math.random() * 400 + 200;
-    this.age = 0;
+prefersDark.addEventListener('change', e => {
+  if (!localStorage.getItem('cloud-theme')) {
+    html.dataset.theme = e.matches ? 'dark' : 'light';
   }
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    this.age++;
-    if (this.age > this.life || this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-  }
-  draw() {
-    const fade = 1 - this.age / this.life;
-    ctx.globalAlpha = this.opacity * fade;
-    ctx.fillStyle = '#e8e4df';
-    ctx.fillRect(this.x, this.y, this.size, this.size);
-  }
-}
+});
 
-for (let i = 0; i < 60; i++) particles.push(new ChalkParticle());
-
-function animateParticles() {
-  ctx.clearRect(0, 0, W, H);
-  particles.forEach(p => { p.update(); p.draw(); });
-  ctx.globalAlpha = 1;
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
+themeToggle.addEventListener('click', () => {
+  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
+  localStorage.setItem('cloud-theme', next);
+});
 
 // ─── Navigation dots ───
 const sceneNames = ['Start','Computer','Aufgabe','Serverraum','Virtualisierung','Rechenzentren','IaaS','PaaS','SaaS','Vergleich','KV RE'];
-const navEl = document.getElementById('sketchNav');
+const navEl = document.getElementById('navDots');
 sceneNames.forEach((name, i) => {
-  const dot = document.createElementNS('http://www.w3.org/2000/svg','svg');
-  dot.setAttribute('viewBox','0 0 18 18');
-  dot.setAttribute('class','sketch-dot' + (i === 0 ? ' active' : ''));
+  const dot = document.createElement('div');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
   dot.dataset.idx = i;
-  // Wobbly circle path
-  const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-  c.setAttribute('cx','9'); c.setAttribute('cy','9'); c.setAttribute('r','7');
-  dot.appendChild(c);
+  dot.innerHTML = '<span class="tooltip">' + name + '</span>';
   dot.addEventListener('click', () => {
     document.getElementById('scene-' + i).scrollIntoView({ behavior: 'smooth' });
   });
   navEl.appendChild(dot);
 });
 
-// ─── Intersection Observer for scene reveal + SVG draw ───
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const wrap = entry.target.querySelector('.scene-wrap');
-      if (wrap) wrap.classList.add('visible');
-      // Fade in text labels with delay
-      entry.target.querySelectorAll('.fade-text').forEach((el, i) => {
-        setTimeout(() => {
-          el.style.transition = 'opacity 0.6s ease';
-          el.style.opacity = '1';
-        }, 800 + i * 80);
-      });
-      // Reveal elements
-      entry.target.querySelectorAll('.reveal').forEach((el, i) => {
-        setTimeout(() => el.classList.add('vis'), 300 + i * 150);
-      });
-    }
+// ─── Keyboard navigation ───
+const sections = document.querySelectorAll('section');
+let currentScene = 0;
+
+function getCurrentScene() {
+  let active = 0;
+  sections.forEach((s, i) => {
+    if (s.getBoundingClientRect().top < window.innerHeight * 0.5) active = i;
   });
-}, { threshold: 0.15 });
+  return active;
+}
 
-document.querySelectorAll('section').forEach(s => observer.observe(s));
-
-// Hero is always visible
-document.querySelector('.hero-section .scene-wrap')?.classList.add('visible');
-document.querySelectorAll('.hero-section .fade-text').forEach(el => el.style.opacity = '1');
-// Draw hero cloud
-document.querySelectorAll('.hero-section .draw-on').forEach(el => {
-  setTimeout(() => el.style.strokeDashoffset = '0', 300);
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+    e.preventDefault();
+    currentScene = Math.min(getCurrentScene() + 1, sections.length - 1);
+    sections[currentScene].scrollIntoView({ behavior: 'smooth' });
+  } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    e.preventDefault();
+    currentScene = Math.max(getCurrentScene() - 1, 0);
+    sections[currentScene].scrollIntoView({ behavior: 'smooth' });
+  } else if (e.key === 'Home') {
+    e.preventDefault();
+    sections[0].scrollIntoView({ behavior: 'smooth' });
+  } else if (e.key === 'End') {
+    e.preventDefault();
+    sections[sections.length - 1].scrollIntoView({ behavior: 'smooth' });
+  }
 });
 
-// ─── Scroll progress + active dot ───
-let ticking = false;
+// ─── Progress bar + active dot ───
+function updateProgress() {
+  const scrolled = window.scrollY;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = max > 0 ? Math.min(scrolled / max, 1) : 0;
+  document.getElementById('progressBar').style.width = (pct * 100) + '%';
+
+  const activeIdx = getCurrentScene();
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === activeIdx);
+  });
+}
+
+let scrollTicking = false;
 window.addEventListener('scroll', () => {
-  if (!ticking) {
-    requestAnimationFrame(() => {
-      const scrolled = window.scrollY;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = Math.min(scrolled / max, 1);
-
-      // Pencil fill
-      document.getElementById('pencilFill').style.height = (pct * 100) + '%';
-
-      // Active scene
-      let activeIdx = 0;
-      document.querySelectorAll('section').forEach((s, i) => {
-        if (s.getBoundingClientRect().top < window.innerHeight * 0.5) activeIdx = i;
-      });
-      document.getElementById('pencilLabel').textContent = Math.max(activeIdx, 1) + ' / 10';
-
-      document.querySelectorAll('.sketch-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === activeIdx);
-      });
-      ticking = false;
-    });
-    ticking = true;
+  if (!scrollTicking) {
+    requestAnimationFrame(() => { updateProgress(); scrollTicking = false; });
+    scrollTicking = true;
   }
+}, { passive: true });
+
+// ─── GSAP ScrollTrigger animations ───
+gsap.registerPlugin(ScrollTrigger);
+
+// Scene content reveal
+document.querySelectorAll('.scene-content').forEach(el => {
+  gsap.from(el, {
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 80%',
+      toggleActions: 'play none none none',
+    },
+    y: 60,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out',
+  });
+});
+
+// SVG draw-on animations
+document.querySelectorAll('section').forEach(section => {
+  const drawOns = section.querySelectorAll('.draw-on');
+  if (!drawOns.length) return;
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top 65%',
+    onEnter: () => {
+      drawOns.forEach((el, i) => {
+        const len = el.style.getPropertyValue('--len') || '1000';
+        el.style.strokeDasharray = len;
+        el.style.strokeDashoffset = len;
+        const delay = i * 60;
+        setTimeout(() => {
+          el.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+          el.style.strokeDashoffset = '0';
+        }, delay);
+      });
+    },
+    once: true,
+  });
+});
+
+// Insight cards — slide in from left
+document.querySelectorAll('.insight-card').forEach(el => {
+  gsap.from(el, {
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 85%',
+      toggleActions: 'play none none none',
+    },
+    x: -40,
+    opacity: 0,
+    duration: 0.7,
+    ease: 'power2.out',
+  });
+});
+
+// Benefits grid items — stagger
+document.querySelectorAll('.benefit-item').forEach((el, i) => {
+  gsap.from(el, {
+    scrollTrigger: {
+      trigger: el.parentElement,
+      start: 'top 80%',
+      toggleActions: 'play none none none',
+    },
+    y: 30,
+    opacity: 0,
+    duration: 0.5,
+    delay: i * 0.1,
+    ease: 'power2.out',
+  });
+});
+
+// Comparison grid cells — stagger reveal
+const compCells = document.querySelectorAll('.comp-cell:not(.header):not(.label)');
+compCells.forEach((el, i) => {
+  gsap.from(el, {
+    scrollTrigger: {
+      trigger: el.closest('.comp-grid'),
+      start: 'top 75%',
+      toggleActions: 'play none none none',
+    },
+    scale: 0.8,
+    opacity: 0,
+    duration: 0.3,
+    delay: i * 0.04,
+    ease: 'back.out(1.5)',
+  });
+});
+
+// Takeaway cards — scale up
+document.querySelectorAll('.takeaway').forEach(el => {
+  gsap.from(el, {
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 90%',
+      toggleActions: 'play none none none',
+    },
+    scale: 0.9,
+    opacity: 0,
+    duration: 0.5,
+    ease: 'power2.out',
+  });
+});
+
+// Hero immediate animation
+gsap.from('.hero-badge', { y: -20, opacity: 0, duration: 0.6, delay: 0.1 });
+gsap.from('h1', { y: 30, opacity: 0, duration: 0.8, delay: 0.2 });
+gsap.from('.hero-sub', { y: 20, opacity: 0, duration: 0.6, delay: 0.5 });
+gsap.from('.hero-scroll', { opacity: 0, duration: 0.6, delay: 1 });
+
+// Hero cloud draw
+document.querySelectorAll('.hero-cloud .draw-on, .hero-section .draw-on').forEach((el, i) => {
+  const len = el.style.getPropertyValue('--len') || '1000';
+  el.style.strokeDasharray = len;
+  el.style.strokeDashoffset = len;
+  setTimeout(() => {
+    el.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1)';
+    el.style.strokeDashoffset = '0';
+  }, 400 + i * 200);
 });
 </script>
 </body>
