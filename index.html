@@ -358,12 +358,8 @@
 <section class="hero-section" id="scene-0">
   <div class="hero-rough" id="heroRough"></div>
   <div class="scene-content" style="text-align:center; position:relative;">
-    <div class="hero-badge">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-      Kreisverwaltung Recklinghausen
-    </div>
     <h1>Was ist die<br>&bdquo;Cloud&ldquo;?</h1>
-    <p class="hero-sub">Eine visuelle Reise vom einzelnen Computer bis zur modernen Cloud — verstaendlich erklaert fuer die Kreisverwaltung Recklinghausen.</p>
+    <p class="hero-sub" style="margin:1.5rem auto 0; text-align:center;">Eine visuelle Reise vom einzelnen Computer bis zur modernen Cloud — verstaendlich erklaert fuer die Kreisverwaltung Recklinghausen.</p>
   </div>
   <div class="hero-scroll">
     nach unten scrollen
@@ -385,7 +381,7 @@
 <!-- ==================== SZENE 2 ==================== -->
 <section id="scene-2">
   <div class="scene-content">
-    <h2>Wo wir herkommen: Ein einzelner Computer</h2>
+    <h2>Wo wir herkommen</h2>
     <p class="lead">Was steckt eigentlich in einem Computer?</p>
     <div class="card">
       <div class="rough-diagram" id="diagram1" style="height:280px;"></div>
@@ -501,7 +497,7 @@
 <!-- ==================== SZENE 9 ==================== -->
 <section id="scene-10">
   <div class="scene-content">
-    <h2>Vergleich der Modelle</h2>
+    <h2>Vergleich der Betriebsmodelle</h2>
     <p class="lead">Wer kuemmert sich um was?</p>
     <div class="card">
       <div class="comp-grid">
@@ -595,7 +591,7 @@
 </section>
 
 <footer>
-  Kreisverwaltung Recklinghausen &middot; Marc-Andr&eacute; Bombeck &middot; Cloud-Strategie 2026
+  Marc-Andr&eacute; Bombeck &middot; Was ist die Cloud? &middot; 2026
 </footer>
 
 <!-- Rough.js ESM -->
@@ -802,12 +798,14 @@ function drawAllDiagrams() {
   addText(svg5, 620, 110, '...', { fill: muted, size: '20' });
 
   // Providers
-  svg5.appendChild(rc5.rectangle(100, 210, 190, 50, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
-  addText(svg5, 195, 242, 'Microsoft Azure', { fill: blue, size: '18' });
-  svg5.appendChild(rc5.rectangle(310, 210, 190, 50, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
-  addText(svg5, 405, 242, 'Amazon AWS', { fill: orange, size: '18' });
-  svg5.appendChild(rc5.rectangle(520, 210, 190, 50, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid' }));
-  addText(svg5, 615, 242, 'Google Cloud', { fill: green, size: '18' });
+  svg5.appendChild(rc5.rectangle(40, 210, 165, 50, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  addText(svg5, 122, 242, 'Microsoft Azure', { fill: blue, size: '16' });
+  svg5.appendChild(rc5.rectangle(220, 210, 165, 50, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
+  addText(svg5, 302, 242, 'Amazon AWS', { fill: orange, size: '16' });
+  svg5.appendChild(rc5.rectangle(400, 210, 165, 50, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid' }));
+  addText(svg5, 482, 242, 'Google Cloud', { fill: green, size: '16' });
+  svg5.appendChild(rc5.rectangle(580, 210, 165, 50, { ...R, stroke: red, fill: redBg, fillStyle: 'solid' }));
+  addText(svg5, 662, 242, 'GKD', { fill: red, size: '18', weight: '700' });
 
   // ─── Diagram 6: IaaS ───
   const d6 = document.getElementById('diagram6');
@@ -1076,19 +1074,71 @@ document.querySelectorAll('.scene-content').forEach(el => {
   });
 });
 
-// Rough diagrams — fade in with scale
-document.querySelectorAll('.rough-diagram').forEach(el => {
+// Rough diagrams — fade in with scale (except timeline)
+document.querySelectorAll('.rough-diagram:not(#diagramTimeline)').forEach(el => {
   gsap.from(el, {
     scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none none' },
     scale: 0.92, opacity: 0, duration: 0.9, ease: 'power2.out',
   });
 });
 
-// Insight cards — slide in
+// Timeline — animated era-by-era reveal
+const tlDiagram = document.getElementById('diagramTimeline');
+if (tlDiagram) {
+  const tlSvg = tlDiagram.querySelector('svg');
+  if (tlSvg) {
+    // Hide all children initially, then reveal era by era
+    const allChildren = Array.from(tlSvg.children);
+    allChildren.forEach(child => gsap.set(child, { opacity: 0 }));
+
+    ScrollTrigger.create({
+      trigger: tlDiagram,
+      start: 'top 70%',
+      onEnter: () => {
+        // Group elements roughly by era (each era has ~15-20 elements)
+        // Era positions: y~30 (era1), y~180 (era2), y~330 (era3)
+        const era1 = [], era2 = [], era3 = [];
+        allChildren.forEach(child => {
+          const y = parseFloat(child.getAttribute('y') || child.getAttribute('cy') || child.getAttribute('y1') || '0');
+          const transform = child.getAttribute('transform') || '';
+          // Check bounding for rough.js generated paths
+          const bbox = child.getBBox ? child.getBBox() : { y: y };
+          const elemY = bbox.y || y;
+          if (elemY < 150) era1.push(child);
+          else if (elemY < 300) era2.push(child);
+          else era3.push(child);
+        });
+
+        // Animate each era with staggered delay
+        [era1, era2, era3].forEach((era, eraIdx) => {
+          era.forEach((child, i) => {
+            gsap.to(child, {
+              opacity: 1,
+              duration: 0.4,
+              delay: eraIdx * 1.0 + i * 0.05,
+              ease: 'power2.out',
+            });
+          });
+        });
+      },
+      once: true,
+    });
+  }
+}
+
+// Insight cards — dramatic reveal with scale + glow pulse
 document.querySelectorAll('.insight-card').forEach(el => {
-  gsap.from(el, {
+  gsap.set(el, { opacity: 0, x: -60, scale: 0.9 });
+  gsap.to(el, {
     scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
-    x: -40, opacity: 0, duration: 0.7, ease: 'power2.out',
+    opacity: 1, x: 0, scale: 1,
+    duration: 0.8, delay: 0.4,
+    ease: 'back.out(1.4)',
+    onComplete: () => {
+      // Subtle pulse animation after reveal
+      gsap.fromTo(el, { boxShadow: '0 0 0px rgba(251,191,36,0)' },
+        { boxShadow: '0 0 25px rgba(251,191,36,0.3)', duration: 0.5, yoyo: true, repeat: 1, ease: 'power2.inOut' });
+    }
   });
 });
 
