@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Was ist Cloud Computing? — Kreisverwaltung Recklinghausen</title>
-  <meta name="description" content="Eine visuelle Erklaerung von Cloud Computing fuer die Kreisverwaltung Recklinghausen">
+  <title>Was ist die "Cloud"? — Kreisverwaltung Recklinghausen</title>
+  <meta name="description" content="Eine visuelle Erklaerung der Cloud fuer die Kreisverwaltung Recklinghausen">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
@@ -16,12 +17,10 @@
     :root {
       --font-display: 'Outfit', sans-serif;
       --font-body: 'DM Sans', sans-serif;
+      --font-sketch: 'Caveat', cursive;
 
-      /* Light theme */
       --bg: #f5f5f0;
       --bg-card: #ffffff;
-      --bg-card-hover: #fafaf8;
-      --bg-insight: #fffbeb;
       --text: #1a1a2e;
       --text-secondary: #4a4a68;
       --text-muted: #8888a0;
@@ -29,6 +28,7 @@
       --border-strong: rgba(0,0,0,0.15);
       --shadow: 0 2px 20px rgba(0,0,0,0.06);
       --shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
+      --rough-stroke: #1a1a2e;
 
       --blue: #3b82f6;
       --blue-bg: rgba(59,130,246,0.08);
@@ -42,18 +42,14 @@
       --red-bg: rgba(239,68,68,0.08);
       --cyan: #06b6d4;
       --cyan-bg: rgba(6,182,212,0.08);
-      --amber: #d97706;
-      --amber-bg: rgba(217,119,6,0.06);
 
       --insight-border: #f59e0b;
       --insight-bg: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03));
       --insight-text: #92400e;
       --insight-icon: #f59e0b;
 
-      --nav-bg: rgba(255,255,255,0.85);
       --nav-dot: rgba(0,0,0,0.15);
       --nav-dot-active: #3b82f6;
-
       --gradient-hero: linear-gradient(180deg, rgba(59,130,246,0.06) 0%, transparent 60%);
       --grid-color: rgba(0,0,0,0.03);
     }
@@ -61,8 +57,6 @@
     [data-theme="dark"] {
       --bg: #0c0c1d;
       --bg-card: #141428;
-      --bg-card-hover: #1a1a36;
-      --bg-insight: #1e1a0f;
       --text: #e8e8f0;
       --text-secondary: #a0a0b8;
       --text-muted: #606078;
@@ -70,6 +64,7 @@
       --border-strong: rgba(255,255,255,0.12);
       --shadow: 0 2px 20px rgba(0,0,0,0.3);
       --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+      --rough-stroke: #e8e8f0;
 
       --blue: #60a5fa;
       --blue-bg: rgba(96,165,250,0.1);
@@ -83,26 +78,19 @@
       --red-bg: rgba(248,113,113,0.1);
       --cyan: #22d3ee;
       --cyan-bg: rgba(34,211,238,0.1);
-      --amber: #fbbf24;
-      --amber-bg: rgba(251,191,36,0.08);
 
       --insight-border: #fbbf24;
       --insight-bg: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(251,191,36,0.03));
       --insight-text: #fde68a;
       --insight-icon: #fbbf24;
 
-      --nav-bg: rgba(20,20,40,0.85);
       --nav-dot: rgba(255,255,255,0.15);
       --nav-dot-active: #60a5fa;
-
       --gradient-hero: linear-gradient(180deg, rgba(96,165,250,0.08) 0%, transparent 60%);
       --grid-color: rgba(255,255,255,0.02);
     }
 
-    html {
-      scroll-behavior: smooth;
-      scroll-snap-type: y proximity;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--font-body);
@@ -113,15 +101,13 @@
       transition: background 0.4s ease, color 0.4s ease;
     }
 
-    /* Grid background */
+    /* Subtle dot grid background */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image:
-        linear-gradient(var(--grid-color) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-      background-size: 60px 60px;
+      background-image: radial-gradient(circle, var(--grid-color) 1px, transparent 1px);
+      background-size: 32px 32px;
       pointer-events: none;
       z-index: 0;
     }
@@ -145,20 +131,8 @@
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
     }
-    .theme-toggle:hover {
-      transform: scale(1.1);
-      box-shadow: var(--shadow-lg);
-    }
-    .theme-toggle svg {
-      width: 22px;
-      height: 22px;
-      stroke: var(--text);
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: stroke 0.3s;
-    }
+    .theme-toggle:hover { transform: scale(1.1); box-shadow: var(--shadow-lg); }
+    .theme-toggle svg { width: 22px; height: 22px; stroke: var(--text); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s; }
     .theme-toggle .icon-moon { display: none; }
     [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
     [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
@@ -169,7 +143,6 @@
       bottom: 1.5rem;
       right: 1.5rem;
       z-index: 200;
-      font-family: var(--font-body);
       font-size: 0.75rem;
       color: var(--text-muted);
       background: var(--bg-card);
@@ -178,370 +151,175 @@
       padding: 6px 12px;
       box-shadow: var(--shadow);
       opacity: 0.7;
-      transition: opacity 0.3s;
       display: flex;
       align-items: center;
       gap: 6px;
       backdrop-filter: blur(10px);
     }
     .kb-hint kbd {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 22px;
-      height: 22px;
-      padding: 0 4px;
-      background: var(--bg);
-      border: 1px solid var(--border-strong);
-      border-radius: 4px;
-      font-family: var(--font-body);
-      font-size: 0.7rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 22px; height: 22px; padding: 0 4px;
+      background: var(--bg); border: 1px solid var(--border-strong);
+      border-radius: 4px; font-family: var(--font-body); font-size: 0.7rem;
     }
 
     /* ── Navigation dots ── */
     .nav-dots {
-      position: fixed;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 150;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
+      z-index: 150; display: flex; flex-direction: column; gap: 12px;
     }
     .nav-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--nav-dot);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--nav-dot); cursor: pointer;
+      transition: all 0.3s ease; position: relative;
     }
-    .nav-dot.active {
-      background: var(--nav-dot-active);
-      transform: scale(1.4);
-      box-shadow: 0 0 12px rgba(96,165,250,0.4);
-    }
+    .nav-dot.active { background: var(--nav-dot-active); transform: scale(1.4); box-shadow: 0 0 12px rgba(96,165,250,0.4); }
     .nav-dot:hover { transform: scale(1.3); background: var(--nav-dot-active); opacity: 0.7; }
     .nav-dot .tooltip {
-      position: absolute;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      white-space: nowrap;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      color: var(--text);
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 4px 10px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-      box-shadow: var(--shadow);
+      position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+      white-space: nowrap; font-size: 0.8rem; color: var(--text);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 4px 10px; opacity: 0; pointer-events: none;
+      transition: opacity 0.2s; box-shadow: var(--shadow);
     }
     .nav-dot:hover .tooltip { opacity: 1; }
 
     /* ── Progress bar ── */
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--blue), var(--purple));
-      z-index: 300;
-      transition: width 0.15s ease-out;
-      width: 0%;
-    }
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--purple)); z-index: 300; width: 0%; }
 
     /* ── Sections ── */
     section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6rem 2rem;
-      position: relative;
-      z-index: 2;
-      scroll-snap-align: start;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 6rem 2rem; position: relative; z-index: 2;
     }
-
-    .scene-content {
-      max-width: 1000px;
-      width: 100%;
-      position: relative;
-    }
+    .scene-content { max-width: 1000px; width: 100%; position: relative; }
 
     /* ── Typography ── */
     h1 {
       font-family: var(--font-display);
       font-size: clamp(3.5rem, 8vw, 6.5rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      color: var(--text);
+      font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
       background: linear-gradient(135deg, var(--text) 0%, var(--blue) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-
     h2 {
       font-family: var(--font-display);
       font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
+      font-weight: 700; color: var(--text); margin-bottom: 0.5rem;
+      letter-spacing: -0.02em; line-height: 1.15;
     }
-
-    .lead {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-    }
+    .lead { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2.5rem; max-width: 600px; }
 
     /* ── Cards ── */
     .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2.5rem;
-      box-shadow: var(--shadow);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem; box-shadow: var(--shadow);
       transition: all 0.3s ease;
     }
-    .card:hover {
-      border-color: var(--border-strong);
-      box-shadow: var(--shadow-lg);
+
+    /* ── Rough.js diagram containers ── */
+    .rough-diagram {
+      width: 100%;
+      min-height: 200px;
+      position: relative;
+      margin: 0 auto;
+    }
+    .rough-diagram svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .rough-diagram text {
+      font-family: var(--font-sketch);
+      fill: var(--text);
+    }
+    .rough-label {
+      font-family: var(--font-sketch);
+      font-size: 1.1rem;
+      font-weight: 600;
     }
 
     /* ── Insight cards (metaphor callouts) ── */
     .insight-card {
-      position: relative;
-      margin-top: 2rem;
+      position: relative; margin-top: 2rem;
       padding: 1.5rem 2rem 1.5rem 4.5rem;
       background: var(--insight-bg);
       border: 2px solid var(--insight-border);
       border-radius: 14px;
       color: var(--insight-text);
-      font-size: 1.2rem;
-      font-weight: 500;
-      line-height: 1.5;
+      font-size: 1.2rem; font-weight: 500; line-height: 1.5;
       overflow: hidden;
     }
     .insight-card::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: var(--insight-border);
-      border-radius: 14px 0 0 14px;
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px; background: var(--insight-border); border-radius: 14px 0 0 14px;
     }
     .insight-card .insight-icon {
-      position: absolute;
-      left: 1.25rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 28px;
-      height: 28px;
-      color: var(--insight-icon);
+      position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%);
+      width: 28px; height: 28px; color: var(--insight-icon);
     }
-    .insight-card strong {
-      display: block;
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
+    .insight-card strong { display: block; font-size: 1.1rem; font-weight: 700; margin-bottom: 2px; }
 
     /* ── Takeaway ── */
     .takeaway {
-      margin-top: 1.5rem;
-      padding: 1rem 1.5rem;
-      text-align: center;
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 600;
-      border-radius: 10px;
-    }
-
-    /* ── SVG Diagrams ── */
-    .diagram {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      display: block;
-    }
-    .diagram text {
-      font-family: var(--font-display);
-    }
-    .draw-on {
-      stroke-dasharray: var(--len);
-      stroke-dashoffset: var(--len);
+      margin-top: 1.5rem; padding: 1rem 1.5rem; text-align: center;
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; border-radius: 10px;
     }
 
     /* ── Color utilities ── */
-    .c-blue { color: var(--blue); }
-    .c-green { color: var(--green); }
-    .c-orange { color: var(--orange); }
-    .c-purple { color: var(--purple); }
-    .c-red { color: var(--red); }
-    .c-cyan { color: var(--cyan); }
-
-    .bg-blue { background: var(--blue-bg); }
-    .bg-green { background: var(--green-bg); }
-    .bg-orange { background: var(--orange-bg); }
-    .bg-purple { background: var(--purple-bg); }
-    .bg-red { background: var(--red-bg); }
-    .bg-cyan { background: var(--cyan-bg); }
+    .c-blue { color: var(--blue); } .c-green { color: var(--green); }
+    .c-orange { color: var(--orange); } .c-purple { color: var(--purple); }
+    .c-red { color: var(--red); } .c-cyan { color: var(--cyan); }
+    .bg-blue { background: var(--blue-bg); } .bg-green { background: var(--green-bg); }
+    .bg-orange { background: var(--orange-bg); } .bg-purple { background: var(--purple-bg); }
+    .bg-red { background: var(--red-bg); } .bg-cyan { background: var(--cyan-bg); }
 
     /* ── Comparison grid ── */
-    .comp-grid {
-      display: grid;
-      grid-template-columns: 1.5fr repeat(4, 1fr);
-      gap: 3px;
-      font-size: 1rem;
-    }
-    .comp-cell {
-      padding: 0.8rem 0.6rem;
-      text-align: center;
-      border-radius: 6px;
-      transition: transform 0.2s;
-    }
-    .comp-cell.header {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 1.05rem;
-    }
-    .comp-cell.label {
-      text-align: left;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-    .comp-cell.you {
-      color: var(--red);
-      background: var(--red-bg);
-      font-weight: 500;
-    }
-    .comp-cell.them {
-      color: var(--green);
-      background: var(--green-bg);
-      font-weight: 500;
-    }
+    .comp-grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 3px; font-size: 1rem; }
+    .comp-cell { padding: 0.8rem 0.6rem; text-align: center; border-radius: 6px; transition: transform 0.2s; }
+    .comp-cell.header { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; }
+    .comp-cell.label { text-align: left; color: var(--text-secondary); font-weight: 500; }
+    .comp-cell.you { color: var(--red); background: var(--red-bg); font-weight: 500; }
+    .comp-cell.them { color: var(--green); background: var(--green-bg); font-weight: 500; }
 
     /* ── Benefits ── */
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
+    .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
     .benefit-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 1rem 1.25rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-size: 1.05rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 14px;
+      padding: 1rem 1.25rem; background: var(--bg-card);
+      border: 1px solid var(--border); border-radius: 12px;
+      font-size: 1.05rem; font-weight: 500; transition: all 0.3s ease;
     }
-    .benefit-item:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-    }
+    .benefit-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
     .benefit-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 1.3rem;
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 1.3rem;
     }
 
     /* ── Hero ── */
-    .hero-section {
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--gradient-hero);
-      pointer-events: none;
-    }
+    .hero-section { position: relative; overflow: hidden; }
+    .hero-section::before { content: ''; position: absolute; inset: 0; background: var(--gradient-hero); pointer-events: none; }
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      background: var(--blue-bg);
-      border: 1px solid rgba(59,130,246,0.2);
-      border-radius: 100px;
-      font-family: var(--font-display);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--blue);
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; background: var(--blue-bg);
+      border: 1px solid rgba(59,130,246,0.2); border-radius: 100px;
+      font-family: var(--font-display); font-size: 0.85rem; font-weight: 500; color: var(--blue);
       margin-bottom: 1.5rem;
     }
-    .hero-sub {
-      font-size: 1.35rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin-top: 1.5rem;
-      line-height: 1.7;
-    }
+    .hero-sub { font-size: 1.35rem; color: var(--text-secondary); max-width: 600px; margin-top: 1.5rem; line-height: 1.7; }
     .hero-scroll {
-      position: absolute;
-      bottom: 3rem;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+      text-align: center; color: var(--text-muted); font-size: 0.9rem;
     }
-    .hero-scroll svg {
-      display: block;
-      margin: 8px auto 0;
-      animation: bounce 2s ease-in-out infinite;
-      stroke: var(--text-muted);
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
-    }
-
-    /* ── Hero cloud SVG background ── */
-    .hero-cloud {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 700px;
-      height: 450px;
-      opacity: 0.04;
-      pointer-events: none;
-    }
+    .hero-scroll svg { display: block; margin: 8px auto 0; animation: bounce 2s ease-in-out infinite; stroke: var(--text-muted); }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+    .hero-rough { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 450px; opacity: 0.06; pointer-events: none; }
 
     /* ── Footer ── */
     footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      position: relative;
-      z-index: 2;
+      text-align: center; padding: 3rem 1rem; font-family: var(--font-body);
+      font-size: 0.9rem; color: var(--text-muted); position: relative; z-index: 2;
       border-top: 1px solid var(--border);
     }
 
@@ -551,7 +329,6 @@
       .card { padding: 1.75rem; }
       .benefits-grid { grid-template-columns: 1fr; }
       .comp-grid { font-size: 0.8rem; }
-      .comp-cell { padding: 0.5rem 0.3rem; }
       .nav-dots { right: 0.75rem; gap: 10px; }
       .nav-dot .tooltip { display: none; }
       .theme-toggle { top: 1rem; right: 1rem; width: 40px; height: 40px; }
@@ -566,425 +343,155 @@
 </head>
 <body>
 
-<!-- Progress bar -->
 <div class="progress-bar" id="progressBar"></div>
 
-<!-- Theme toggle -->
 <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln" title="Theme wechseln">
   <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
   <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 </button>
 
-<!-- Keyboard hint -->
-<div class="kb-hint">
-  <kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigation
-</div>
+<div class="kb-hint"><kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigation</div>
 
-<!-- Nav dots -->
 <nav class="nav-dots" id="navDots"></nav>
 
 <!-- ==================== HERO ==================== -->
 <section class="hero-section" id="scene-0">
-  <svg class="hero-cloud" viewBox="0 0 700 450">
-    <path d="M180 310 Q120 310, 95 270 Q50 240, 80 200 Q65 160, 105 135 Q120 85, 180 75 Q215 40, 275 50 Q320 20, 380 40 Q430 15, 480 50 Q530 30, 560 65 Q610 55, 620 100 Q660 115, 645 165 Q670 200, 640 240 Q660 275, 620 300 Q595 325, 550 310 Z" stroke="var(--blue)" stroke-width="2" fill="none"/>
-    <path d="M240 310 L240 390 M350 310 L350 400 M460 310 L460 380" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="8 6" fill="none"/>
-  </svg>
-
+  <div class="hero-rough" id="heroRough"></div>
   <div class="scene-content" style="text-align:center; position:relative;">
     <div class="hero-badge">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
       Kreisverwaltung Recklinghausen
     </div>
-    <h1>Was ist Cloud<br>Computing?</h1>
-    <p class="hero-sub">Eine visuelle Reise vom einzelnen Computer bis zur modernen Cloud — verstaendlich erklaert.</p>
+    <h1>Was ist die<br>&bdquo;Cloud&ldquo;?</h1>
+    <p class="hero-sub">Eine visuelle Reise vom einzelnen Computer bis zur modernen Cloud — verstaendlich erklaert fuer die Kreisverwaltung Recklinghausen.</p>
   </div>
-
   <div class="hero-scroll">
     nach unten scrollen
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
-      <path d="M7 10 L12 16 L17 10" stroke-linecap="round"/>
-    </svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 10 L12 16 L17 10" stroke-linecap="round"/></svg>
   </div>
 </section>
 
-<!-- ==================== SZENE 1: Ein einzelner Computer ==================== -->
+<!-- ==================== SZENE 1 ==================== -->
 <section id="scene-1">
   <div class="scene-content">
     <h2>Ein einzelner Computer</h2>
     <p class="lead">Was steckt eigentlich in einem Computer?</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 280">
-        <!-- Monitor -->
-        <rect x="300" y="10" width="200" height="130" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2.5" class="draw-on" style="--len:700"/>
-        <rect x="318" y="28" width="164" height="90" rx="6" fill="none" stroke="var(--green)" stroke-width="1" opacity="0.4" class="draw-on" style="--len:520"/>
-        <!-- Screen content lines -->
-        <line x1="330" y1="50" x2="410" y2="50" stroke="var(--green)" stroke-width="1.5" opacity="0.3" class="draw-on" style="--len:80"/>
-        <line x1="330" y1="65" x2="460" y2="65" stroke="var(--green)" stroke-width="1.5" opacity="0.2" class="draw-on" style="--len:130"/>
-        <line x1="330" y1="80" x2="440" y2="80" stroke="var(--green)" stroke-width="1.5" opacity="0.2" class="draw-on" style="--len:110"/>
-        <!-- Stand -->
-        <path d="M375 140 L375 168 L425 168 L425 140" stroke="var(--green)" stroke-width="2" fill="none" class="draw-on" style="--len:90"/>
-        <line x1="355" y1="168" x2="445" y2="168" stroke="var(--green)" stroke-width="2.5" class="draw-on" style="--len:90"/>
-
-        <!-- Connecting lines -->
-        <path d="M300 200 Q250 195, 190 210" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 4" class="draw-on" style="--len:130" opacity="0.5"/>
-        <path d="M400 185 L400 210" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 4" class="draw-on" style="--len:30" opacity="0.5"/>
-        <path d="M500 200 Q550 195, 610 210" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="6 4" class="draw-on" style="--len:130" opacity="0.5"/>
-
-        <!-- CPU -->
-        <rect x="80" y="210" width="180" height="60" rx="10" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:500"/>
-        <text x="170" y="238" text-anchor="middle" font-size="18" font-weight="600" fill="var(--blue)">Prozessor</text>
-        <text x="170" y="258" text-anchor="middle" font-size="13" fill="var(--blue)" opacity="0.7">CPU</text>
-
-        <!-- RAM -->
-        <rect x="310" y="210" width="180" height="60" rx="10" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:500"/>
-        <text x="400" y="238" text-anchor="middle" font-size="18" font-weight="600" fill="var(--orange)">Arbeitsspeicher</text>
-        <text x="400" y="258" text-anchor="middle" font-size="13" fill="var(--orange)" opacity="0.7">RAM</text>
-
-        <!-- Disk -->
-        <rect x="540" y="210" width="180" height="60" rx="10" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:500"/>
-        <text x="630" y="238" text-anchor="middle" font-size="18" font-weight="600" fill="var(--purple)">Festplatte</text>
-        <text x="630" y="258" text-anchor="middle" font-size="13" fill="var(--purple)" opacity="0.7">Speicher</text>
-      </svg>
-
-      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
-        Jeder Computer besteht aus diesen 3 Grundbausteinen
-      </div>
+      <div class="rough-diagram" id="diagram1" style="height:280px;"></div>
+      <div class="takeaway bg-green c-green">Jeder Computer besteht aus diesen 3 Grundbausteinen</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 2: Ein Computer, eine Aufgabe ==================== -->
+<!-- ==================== SZENE 2 ==================== -->
 <section id="scene-2">
   <div class="scene-content">
     <h2>Ein Computer, eine Aufgabe</h2>
     <p class="lead">Frueher hatte jeder Server genau einen Job</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 260">
-        <!-- Tasks -->
-        <rect x="40" y="15" width="210" height="75" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:580"/>
-        <text x="145" y="48" text-anchor="middle" font-size="19" font-weight="600" fill="var(--blue)">DNS-Server</text>
-        <text x="145" y="72" text-anchor="middle" font-size="14" fill="var(--blue)" opacity="0.7">Namen aufloesen</text>
-
-        <rect x="295" y="15" width="210" height="75" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:580"/>
-        <text x="400" y="48" text-anchor="middle" font-size="19" font-weight="600" fill="var(--green)">Datei-Server</text>
-        <text x="400" y="72" text-anchor="middle" font-size="14" fill="var(--green)" opacity="0.7">Dateien speichern</text>
-
-        <rect x="550" y="15" width="210" height="75" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:580"/>
-        <text x="655" y="48" text-anchor="middle" font-size="19" font-weight="600" fill="var(--orange)">Mail-Server</text>
-        <text x="655" y="72" text-anchor="middle" font-size="14" fill="var(--orange)" opacity="0.7">E-Mails senden</text>
-
-        <!-- Arrows -->
-        <line x1="145" y1="95" x2="145" y2="145" stroke="var(--text-muted)" stroke-width="2" class="draw-on" style="--len:50" opacity="0.5"/>
-        <path d="M138 138 L145 150 L152 138" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:25" opacity="0.5"/>
-        <line x1="400" y1="95" x2="400" y2="145" stroke="var(--text-muted)" stroke-width="2" class="draw-on" style="--len:50" opacity="0.5"/>
-        <path d="M393 138 L400 150 L407 138" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:25" opacity="0.5"/>
-        <line x1="655" y1="95" x2="655" y2="145" stroke="var(--text-muted)" stroke-width="2" class="draw-on" style="--len:50" opacity="0.5"/>
-        <path d="M648 138 L655 150 L662 138" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:25" opacity="0.5"/>
-
-        <!-- Machines -->
-        <rect x="60" y="155" width="170" height="60" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:470"/>
-        <text x="145" y="191" text-anchor="middle" font-size="17" font-weight="600" fill="var(--red)">Maschine 1</text>
-
-        <rect x="315" y="155" width="170" height="60" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:470"/>
-        <text x="400" y="191" text-anchor="middle" font-size="17" font-weight="600" fill="var(--red)">Maschine 2</text>
-
-        <rect x="570" y="155" width="170" height="60" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="2" class="draw-on" style="--len:470"/>
-        <text x="655" y="191" text-anchor="middle" font-size="17" font-weight="600" fill="var(--red)">Maschine 3</text>
-
-        <!-- Emphasis line -->
-        <ellipse cx="400" cy="240" rx="280" ry="14" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.3" class="draw-on" style="--len:900"/>
-      </svg>
-
-      <div class="takeaway bg-red c-red">
-        3 Aufgaben = 3 physische Server! Viel Hardware, wenig Auslastung.
-      </div>
+      <div class="rough-diagram" id="diagram2" style="height:260px;"></div>
+      <div class="takeaway bg-red c-red">3 Aufgaben = 3 physische Server! Viel Hardware, wenig Auslastung.</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 3: Der Serverraum ==================== -->
+<!-- ==================== SZENE 3 ==================== -->
 <section id="scene-3">
   <div class="scene-content">
     <h2>Der Serverraum</h2>
     <p class="lead">Viele Server brauchen viel Platz, Strom und Kuehlung</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 250">
-        <!-- Rack 1 -->
-        <rect x="70" y="10" width="80" height="180" rx="6" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:540"/>
-        <rect x="80" y="22" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="80" y="46" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="80" y="70" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="80" y="94" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="80" y="118" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="80" y="142" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <text x="110" y="210" text-anchor="middle" font-size="14" fill="var(--green)" font-weight="500">Rack 1</text>
-
-        <!-- Rack 2 -->
-        <rect x="175" y="10" width="80" height="180" rx="6" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:540"/>
-        <rect x="185" y="22" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="185" y="46" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="185" y="70" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="185" y="94" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="185" y="118" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="185" y="142" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <text x="215" y="210" text-anchor="middle" font-size="14" fill="var(--green)" font-weight="500">Rack 2</text>
-
-        <!-- Rack 3 -->
-        <rect x="280" y="10" width="80" height="180" rx="6" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:540"/>
-        <rect x="290" y="22" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="290" y="46" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="290" y="70" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="290" y="94" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="290" y="118" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <rect x="290" y="142" width="60" height="20" rx="3" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:170"/>
-        <text x="320" y="210" text-anchor="middle" font-size="14" fill="var(--green)" font-weight="500">Rack 3</text>
-
-        <text x="400" y="105" font-size="24" fill="var(--text-muted)">...</text>
-
-        <!-- Cost items -->
-        <rect x="480" y="18" width="270" height="42" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:640"/>
-        <text x="615" y="46" text-anchor="middle" font-size="16" font-weight="500" fill="var(--red)">Stromverbrauch</text>
-
-        <rect x="480" y="68" width="270" height="42" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:640"/>
-        <text x="615" y="96" text-anchor="middle" font-size="16" font-weight="500" fill="var(--red)">Kuehlung</text>
-
-        <rect x="480" y="118" width="270" height="42" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:640"/>
-        <text x="615" y="146" text-anchor="middle" font-size="16" font-weight="500" fill="var(--red)">Platz / Miete</text>
-
-        <rect x="480" y="168" width="270" height="42" rx="10" fill="var(--red-bg)" stroke="var(--red)" stroke-width="1.5" class="draw-on" style="--len:640"/>
-        <text x="615" y="196" text-anchor="middle" font-size="16" font-weight="500" fill="var(--red)">IT-Personal</text>
-      </svg>
-
-      <div class="takeaway bg-red c-red">
-        Hohe Kosten, viel Aufwand, wenig Flexibilitaet
-      </div>
+      <div class="rough-diagram" id="diagram3" style="height:250px;"></div>
+      <div class="takeaway bg-red c-red">Hohe Kosten, viel Aufwand, wenig Flexibilitaet</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 4: Virtualisierung ==================== -->
+<!-- ==================== SZENE 4 ==================== -->
 <section id="scene-4">
   <div class="scene-content">
     <h2>Virtualisierung</h2>
     <p class="lead">Ab ca. 2000: Ein physischer Server, viele virtuelle Maschinen</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 270">
-        <!-- Physical server -->
-        <rect x="100" y="10" width="600" height="250" rx="14" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2.5" class="draw-on" style="--len:1720"/>
-        <text x="140" y="40" font-size="15" font-weight="500" fill="var(--green)" opacity="0.8">Physischer Server (Hardware)</text>
-
-        <!-- Hypervisor -->
-        <rect x="130" y="55" width="540" height="48" rx="10" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:1180"/>
-        <text x="400" y="86" text-anchor="middle" font-size="17" font-weight="600" fill="var(--orange)">Hypervisor (VMware, Hyper-V)</text>
-
-        <!-- VMs -->
-        <rect x="140" y="125" width="165" height="110" rx="10" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:560"/>
-        <text x="222" y="168" text-anchor="middle" font-size="20" font-weight="600" fill="var(--blue)">VM 1</text>
-        <text x="222" y="195" text-anchor="middle" font-size="14" fill="var(--blue)" opacity="0.7">DNS-Server</text>
-
-        <rect x="318" y="125" width="165" height="110" rx="10" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:560"/>
-        <text x="400" y="168" text-anchor="middle" font-size="20" font-weight="600" fill="var(--purple)">VM 2</text>
-        <text x="400" y="195" text-anchor="middle" font-size="14" fill="var(--purple)" opacity="0.7">Datei-Server</text>
-
-        <rect x="496" y="125" width="165" height="110" rx="10" fill="var(--cyan-bg)" stroke="var(--cyan)" stroke-width="2" class="draw-on" style="--len:560"/>
-        <text x="578" y="168" text-anchor="middle" font-size="20" font-weight="600" fill="var(--cyan)">VM 3</text>
-        <text x="578" y="195" text-anchor="middle" font-size="14" fill="var(--cyan)" opacity="0.7">Mail-Server</text>
-      </svg>
-
+      <div class="rough-diagram" id="diagram4" style="height:270px;"></div>
       <div class="insight-card">
         <svg class="insight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <strong>Wie ein Mehrfamilienhaus:</strong>
         Ein Gebaeude, viele Wohnungen — alle teilen sich Fundament und Dach.
       </div>
-
-      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
-        Bessere Auslastung, weniger Hardware!
-      </div>
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">Bessere Auslastung, weniger Hardware!</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 5: Moderne Rechenzentren ==================== -->
+<!-- ==================== SZENE 5 ==================== -->
 <section id="scene-5">
   <div class="scene-content">
     <h2>Moderne Rechenzentren</h2>
     <p class="lead">Riesige Rechenzentren der Cloud-Anbieter</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 260">
-        <!-- Cloud shape -->
-        <path d="M120 175 Q70 175, 55 140 Q20 115, 55 85 Q50 50, 100 42 Q125 10, 185 22 Q230 -5, 300 12 Q350 -8, 410 10 Q460 -5, 510 20 Q560 5, 590 35 Q640 22, 650 60 Q685 75, 670 115 Q695 145, 660 170 Q645 185, 605 175 Z" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2.5" class="draw-on" style="--len:2000"/>
-        <text x="380" y="55" text-anchor="middle" font-size="18" font-weight="600" fill="var(--blue)">Cloud-Rechenzentrum</text>
-
-        <!-- Mini servers inside -->
-        <rect x="145" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="185" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="225" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="275" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="315" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="355" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="405" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="445" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="485" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <rect x="525" y="75" width="30" height="55" rx="4" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.2" class="draw-on" style="--len:180"/>
-        <text x="590" y="110" font-size="16" fill="var(--text-muted)">...</text>
-
-        <!-- Providers -->
-        <rect x="100" y="200" width="185" height="48" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:480"/>
-        <text x="192" y="230" text-anchor="middle" font-size="17" font-weight="600" fill="var(--blue)">Microsoft Azure</text>
-
-        <rect x="308" y="200" width="185" height="48" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:480"/>
-        <text x="400" y="230" text-anchor="middle" font-size="17" font-weight="600" fill="var(--orange)">Amazon AWS</text>
-
-        <rect x="516" y="200" width="185" height="48" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:480"/>
-        <text x="608" y="230" text-anchor="middle" font-size="17" font-weight="600" fill="var(--green)">Google Cloud</text>
-      </svg>
-
-      <div class="takeaway bg-orange c-orange">
-        Statt eigene Server zu kaufen, mietet man Rechenleistung bei Profis
-      </div>
+      <div class="rough-diagram" id="diagram5" style="height:280px;"></div>
+      <div class="takeaway bg-orange c-orange">Statt eigene Server zu kaufen, mietet man Rechenleistung bei Profis</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 6: IaaS ==================== -->
+<!-- ==================== SZENE 6 ==================== -->
 <section id="scene-6">
   <div class="scene-content">
     <h2>Infrastructure as a Service</h2>
     <p class="lead">IaaS — Infrastruktur mieten</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 200">
-        <!-- User -->
-        <circle cx="120" cy="75" r="30" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:200"/>
-        <circle cx="120" cy="56" r="13" fill="none" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:85"/>
-        <text x="120" y="125" text-anchor="middle" font-size="16" font-weight="500" fill="var(--blue)">Nutzer</text>
-
-        <!-- Arrow -->
-        <path d="M165 75 Q230 68, 290 75" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:140"/>
-        <path d="M280 68 L293 75 L280 82" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:28"/>
-        <text x="225" y="62" text-anchor="middle" font-size="14" font-weight="500" fill="var(--text-muted)">bestellt</text>
-
-        <!-- Cloud -->
-        <path d="M330 150 Q295 150, 287 120 Q265 105, 287 82 Q287 55, 325 48 Q348 25, 405 32 Q440 12, 485 28 Q520 15, 545 42 Q575 32, 588 58 Q615 52, 615 80 Q635 92, 620 115 Q632 135, 610 148 Q598 158, 570 150 Z" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="2" stroke-dasharray="8 5" class="draw-on" style="--len:1200"/>
-        <text x="455" y="55" text-anchor="middle" font-size="14" font-weight="500" fill="var(--purple)" opacity="0.8">Cloud</text>
-
-        <!-- Items inside cloud -->
-        <rect x="340" y="72" width="115" height="52" rx="8" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:340"/>
-        <text x="397" y="104" text-anchor="middle" font-size="15" font-weight="500" fill="var(--blue)">Windows</text>
-
-        <rect x="465" y="72" width="115" height="52" rx="8" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.5" class="draw-on" style="--len:340"/>
-        <text x="522" y="104" text-anchor="middle" font-size="15" font-weight="500" fill="var(--green)">Linux</text>
-      </svg>
-
+      <div class="rough-diagram" id="diagram6" style="height:220px;"></div>
       <div class="insight-card">
         <svg class="insight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2"/></svg>
         <strong>Wie ein Mietwagen:</strong>
-        Du faehrst selbst, aber kuemerst dich nicht um die Werkstatt.
+        Du faehrst selbst, aber kuemmerst dich nicht um die Werkstatt.
       </div>
-
-      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
-        Virtuelle Maschinen auf Knopfdruck
-      </div>
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">Virtuelle Maschinen auf Knopfdruck</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 7: PaaS ==================== -->
+<!-- ==================== SZENE 7 ==================== -->
 <section id="scene-7">
   <div class="scene-content">
     <h2>Platform as a Service</h2>
     <p class="lead">PaaS — Plattformen mieten</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 200">
-        <!-- Platform services -->
-        <rect x="50" y="15" width="210" height="72" rx="12" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="2" class="draw-on" style="--len:570"/>
-        <text x="155" y="48" text-anchor="middle" font-size="18" font-weight="600" fill="var(--purple)">Datenbank</text>
-        <text x="155" y="70" text-anchor="middle" font-size="13" fill="var(--purple)" opacity="0.7">Azure SQL</text>
-
-        <rect x="295" y="15" width="210" height="72" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:570"/>
-        <text x="400" y="48" text-anchor="middle" font-size="18" font-weight="600" fill="var(--blue)">App-Plattform</text>
-        <text x="400" y="70" text-anchor="middle" font-size="13" fill="var(--blue)" opacity="0.7">App Service</text>
-
-        <rect x="540" y="15" width="210" height="72" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:570"/>
-        <text x="645" y="48" text-anchor="middle" font-size="18" font-weight="600" fill="var(--green)">Identitaet</text>
-        <text x="645" y="70" text-anchor="middle" font-size="13" fill="var(--green)" opacity="0.7">Entra ID</text>
-
-        <!-- Container bar -->
-        <rect x="80" y="120" width="640" height="58" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:1400"/>
-        <text x="400" y="157" text-anchor="middle" font-size="16" font-weight="600" fill="var(--orange)">Container (Docker) — Leichtgewichtige Software-Pakete</text>
-      </svg>
-
+      <div class="rough-diagram" id="diagram7" style="height:220px;"></div>
       <div class="insight-card">
         <svg class="insight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <strong>Wie eine moeblierte Wohnung:</strong>
         Kueche ist fertig, du musst nur noch kochen!
       </div>
-
-      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
-        Weniger Verwaltungsaufwand, mehr Fokus auf Fachlichkeit
-      </div>
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">Weniger Verwaltungsaufwand, mehr Fokus auf Fachlichkeit</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 8: SaaS ==================== -->
+<!-- ==================== SZENE 8 ==================== -->
 <section id="scene-8">
   <div class="scene-content">
     <h2>Software as a Service</h2>
     <p class="lead">SaaS — Fertige Software nutzen</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 200">
-        <!-- User -->
-        <circle cx="140" cy="100" r="35" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:230"/>
-        <circle cx="140" cy="78" r="15" fill="none" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:100"/>
-        <text x="140" y="155" text-anchor="middle" font-size="17" font-weight="500" fill="var(--blue)">Nutzer</text>
-
-        <!-- Arrows -->
-        <path d="M185 80 Q260 60, 340 55" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:170"/>
-        <path d="M330 48 L343 55 L330 62" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:28"/>
-        <path d="M185 100 Q260 98, 340 100" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:170"/>
-        <path d="M330 93 L343 100 L330 107" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:28"/>
-        <path d="M185 120 Q260 138, 340 145" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:170"/>
-        <path d="M330 138 L343 145 L330 152" stroke="var(--text-muted)" stroke-width="2" fill="none" class="draw-on" style="--len:28"/>
-        <text x="250" y="82" text-anchor="middle" font-size="14" font-weight="500" fill="var(--text-muted)">nutzt</text>
-
-        <!-- Apps -->
-        <rect x="360" y="28" width="240" height="50" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="2" class="draw-on" style="--len:590"/>
-        <text x="480" y="60" text-anchor="middle" font-size="19" font-weight="600" fill="var(--blue)">Microsoft 365</text>
-
-        <rect x="360" y="88" width="240" height="50" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2" class="draw-on" style="--len:590"/>
-        <text x="480" y="120" text-anchor="middle" font-size="19" font-weight="600" fill="var(--green)">Salesforce</text>
-
-        <rect x="360" y="148" width="240" height="50" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:590"/>
-        <text x="480" y="180" text-anchor="middle" font-size="19" font-weight="600" fill="var(--orange)">Teams / Zoom</text>
-      </svg>
-
+      <div class="rough-diagram" id="diagram8" style="height:220px;"></div>
       <div class="insight-card">
         <svg class="insight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
         <strong>Wie ein Restaurant:</strong>
         Du bestellst das fertige Essen. Kein Kochen, kein Abwaschen!
       </div>
-
-      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">
-        Einfach im Browser oeffnen und loslegen
-      </div>
+      <div class="takeaway bg-green c-green" style="margin-top:1.5rem;">Einfach im Browser oeffnen und loslegen</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 9: Vergleich ==================== -->
+<!-- ==================== SZENE 9 ==================== -->
 <section id="scene-9">
   <div class="scene-content">
     <h2>Vergleich der Modelle</h2>
     <p class="lead">Wer kuemmert sich um was?</p>
-
     <div class="card">
       <div class="comp-grid">
         <div class="comp-cell label"></div>
@@ -994,117 +501,81 @@
         <div class="comp-cell header">SaaS</div>
 
         <div class="comp-cell label">Software</div>
-        <div class="comp-cell you">Du</div>
-        <div class="comp-cell you">Du</div>
-        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Wir</div>
+        <div class="comp-cell you">Wir</div>
+        <div class="comp-cell you">Wir</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Plattform</div>
-        <div class="comp-cell you">Du</div>
-        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Wir</div>
+        <div class="comp-cell you">Wir</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Betriebssystem</div>
-        <div class="comp-cell you">Du</div>
-        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Wir</div>
+        <div class="comp-cell you">Wir</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Server</div>
-        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Wir</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Netzwerk</div>
-        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Wir</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
 
         <div class="comp-cell label">Gebaeude</div>
-        <div class="comp-cell you">Du</div>
+        <div class="comp-cell you">Wir</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
         <div class="comp-cell them">Anbieter</div>
       </div>
-
       <div style="display:flex; gap:2rem; justify-content:center; margin:1.5rem 0 0; font-size:0.95rem;">
         <span class="c-red" style="display:flex;align-items:center;gap:6px;">
-          <span style="width:12px;height:12px;background:var(--red);border-radius:3px;display:inline-block;"></span> Du verwaltest
+          <span style="width:12px;height:12px;background:var(--red);border-radius:3px;display:inline-block;"></span> Wir verwalten
         </span>
         <span class="c-green" style="display:flex;align-items:center;gap:6px;">
           <span style="width:12px;height:12px;background:var(--green);border-radius:3px;display:inline-block;"></span> Anbieter verwaltet
         </span>
       </div>
-
-      <div class="takeaway bg-orange c-orange" style="margin-top:1.5rem;">
-        Je mehr Cloud, desto weniger Eigenverantwortung
-      </div>
+      <div class="takeaway bg-orange c-orange" style="margin-top:1.5rem;">Je mehr Cloud, desto weniger Eigenverantwortung</div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SZENE 10: KV Recklinghausen ==================== -->
+<!-- ==================== SZENE 10 ==================== -->
 <section id="scene-10">
   <div class="scene-content">
     <h2>Kreisverwaltung Recklinghausen</h2>
     <p class="lead">Der Weg in die Cloud</p>
-
     <div class="card">
-      <svg class="diagram" viewBox="0 0 800 220">
-        <!-- Today -->
-        <text x="190" y="25" text-anchor="middle" font-size="20" font-weight="700" fill="var(--text)">Heute</text>
-        <rect x="60" y="40" width="260" height="62" rx="12" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="2" class="draw-on" style="--len:660"/>
-        <text x="190" y="78" text-anchor="middle" font-size="17" font-weight="600" fill="var(--orange)">Eigene Server (On-Premise)</text>
-        <rect x="60" y="112" width="260" height="50" rx="12" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:640"/>
-        <text x="190" y="144" text-anchor="middle" font-size="15" font-weight="500" fill="var(--blue)">Wenige SaaS-Dienste</text>
+      <div class="rough-diagram" id="diagram10" style="height:240px;"></div>
 
-        <!-- Arrow -->
-        <path d="M350 100 Q385 95, 420 100" stroke="var(--green)" stroke-width="3" fill="none" class="draw-on" style="--len:80"/>
-        <path d="M410 92 L423 100 L410 108" stroke="var(--green)" stroke-width="3" fill="none" class="draw-on" style="--len:28"/>
-
-        <!-- Future -->
-        <text x="590" y="25" text-anchor="middle" font-size="20" font-weight="700" fill="var(--text)">Zukunft</text>
-        <rect x="450" y="35" width="280" height="150" rx="14" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="8 5" class="draw-on" style="--len:870"/>
-        <rect x="468" y="48" width="244" height="38" rx="8" fill="var(--orange-bg)" stroke="var(--orange)" stroke-width="1.5" class="draw-on" style="--len:570"/>
-        <text x="590" y="73" text-anchor="middle" font-size="14" font-weight="500" fill="var(--orange)">Eigene Server (reduziert)</text>
-        <rect x="468" y="92" width="244" height="38" rx="8" fill="var(--purple-bg)" stroke="var(--purple)" stroke-width="1.5" class="draw-on" style="--len:570"/>
-        <text x="590" y="117" text-anchor="middle" font-size="14" font-weight="500" fill="var(--purple)">Cloud-Dienste (IaaS/PaaS)</text>
-        <rect x="468" y="136" width="244" height="38" rx="8" fill="var(--blue-bg)" stroke="var(--blue)" stroke-width="1.5" class="draw-on" style="--len:570"/>
-        <text x="590" y="161" text-anchor="middle" font-size="14" font-weight="500" fill="var(--blue)">SaaS (Microsoft 365 etc.)</text>
-      </svg>
-
-      <div style="font-family:var(--font-display); font-size:1.3rem; font-weight:600; margin:2rem 0 1rem; color:var(--text);">Vorteile der Cloud-Strategie:</div>
-
+      <div style="font-family:var(--font-display); font-size:1.3rem; font-weight:600; margin:2rem 0 1rem;">Vorteile der Cloud-Strategie:</div>
       <div class="benefits-grid">
         <div class="benefit-item">
-          <div class="benefit-icon bg-green c-green">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-          </div>
+          <div class="benefit-icon bg-green c-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
           <span>Skalierbarkeit bei Bedarf</span>
         </div>
         <div class="benefit-item">
-          <div class="benefit-icon bg-blue c-blue">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
+          <div class="benefit-icon bg-blue c-blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
           <span>Mehr Sicherheit durch Profis</span>
         </div>
         <div class="benefit-item">
-          <div class="benefit-icon bg-purple c-purple">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
+          <div class="benefit-icon bg-purple c-purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
           <span>Weniger Hardwareverwaltung</span>
         </div>
         <div class="benefit-item">
-          <div class="benefit-icon bg-orange c-orange">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
+          <div class="benefit-icon bg-orange c-orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <span>Schnellere Bereitstellung</span>
         </div>
       </div>
-
       <div class="takeaway bg-blue c-blue" style="font-size:1.25rem; margin-top:2rem;">
         Hybrid-Modell: Das Beste aus eigener IT und Cloud kombinieren
       </div>
@@ -1113,220 +584,461 @@
 </section>
 
 <footer>
-  Kreisverwaltung Recklinghausen &middot; 16.1 IT-Services &middot; Cloud-Strategie 2026
+  Kreisverwaltung Recklinghausen &middot; Marc-Andr&eacute; Bombeck &middot; Cloud-Strategie 2026
 </footer>
+
+<!-- Rough.js ESM -->
+<script type="module">
+import rough from 'https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.esm.js';
+
+// ─── Helper: create SVG text ───
+function addText(svg, x, y, text, opts = {}) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  el.setAttribute('x', x);
+  el.setAttribute('y', y);
+  el.setAttribute('text-anchor', opts.anchor || 'middle');
+  el.setAttribute('font-family', opts.font || 'Caveat, cursive');
+  el.setAttribute('font-size', opts.size || '18');
+  el.setAttribute('font-weight', opts.weight || '600');
+  el.setAttribute('fill', opts.fill || 'currentColor');
+  if (opts.opacity) el.setAttribute('opacity', opts.opacity);
+  el.textContent = text;
+  svg.appendChild(el);
+  return el;
+}
+
+// ─── Helper: get CSS variable value ───
+function cv(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// ─── Roughness config ───
+const R = { roughness: 1.5, bowing: 1.2, strokeWidth: 2 };
+
+// ─── Draw all diagrams ───
+function drawAllDiagrams() {
+  // Clear existing
+  document.querySelectorAll('.rough-diagram').forEach(d => { d.innerHTML = ''; });
+  document.getElementById('heroRough').innerHTML = '';
+
+  const blue = cv('--blue');
+  const green = cv('--green');
+  const orange = cv('--orange');
+  const purple = cv('--purple');
+  const red = cv('--red');
+  const cyan = cv('--cyan');
+  const muted = cv('--text-muted');
+  const text = cv('--text');
+  const blueBg = cv('--blue-bg');
+  const greenBg = cv('--green-bg');
+  const orangeBg = cv('--orange-bg');
+  const purpleBg = cv('--purple-bg');
+  const redBg = cv('--red-bg');
+  const cyanBg = cv('--cyan-bg');
+
+  // ─── Hero cloud ───
+  const heroEl = document.getElementById('heroRough');
+  const heroSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  heroSvg.setAttribute('viewBox', '0 0 700 450');
+  heroEl.appendChild(heroSvg);
+  const rcH = rough.svg(heroSvg);
+  heroSvg.appendChild(rcH.path('M180 310 Q120 310, 95 270 Q50 240, 80 200 Q65 160, 105 135 Q120 85, 180 75 Q215 40, 275 50 Q320 20, 380 40 Q430 15, 480 50 Q530 30, 560 65 Q610 55, 620 100 Q660 115, 645 165 Q670 200, 640 240 Q660 275, 620 300 Q595 325, 550 310 Z', { ...R, stroke: blue, fill: 'none', roughness: 2 }));
+  heroSvg.appendChild(rcH.line(240, 310, 240, 390, { ...R, stroke: blue, strokeLineDash: [8, 6] }));
+  heroSvg.appendChild(rcH.line(380, 310, 380, 410, { ...R, stroke: blue, strokeLineDash: [8, 6] }));
+  heroSvg.appendChild(rcH.line(520, 310, 520, 380, { ...R, stroke: blue, strokeLineDash: [8, 6] }));
+
+  // ─── Diagram 1: Single Computer ───
+  const d1 = document.getElementById('diagram1');
+  const svg1 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg1.setAttribute('viewBox', '0 0 800 280');
+  d1.appendChild(svg1);
+  const rc1 = rough.svg(svg1);
+
+  // Monitor
+  svg1.appendChild(rc1.rectangle(300, 10, 200, 130, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid' }));
+  svg1.appendChild(rc1.rectangle(318, 28, 164, 88, { ...R, stroke: green, strokeWidth: 1, roughness: 0.8 }));
+  svg1.appendChild(rc1.line(375, 140, 375, 168, { ...R, stroke: green }));
+  svg1.appendChild(rc1.line(425, 140, 425, 168, { ...R, stroke: green }));
+  svg1.appendChild(rc1.line(355, 168, 445, 170, { ...R, stroke: green, strokeWidth: 2.5 }));
+
+  // Connecting dashed lines
+  svg1.appendChild(rc1.line(300, 195, 200, 210, { ...R, stroke: muted, strokeLineDash: [6, 4], strokeWidth: 1.5 }));
+  svg1.appendChild(rc1.line(400, 180, 400, 210, { ...R, stroke: muted, strokeLineDash: [6, 4], strokeWidth: 1.5 }));
+  svg1.appendChild(rc1.line(500, 195, 600, 210, { ...R, stroke: muted, strokeLineDash: [6, 4], strokeWidth: 1.5 }));
+
+  // CPU, RAM, Disk
+  svg1.appendChild(rc1.rectangle(80, 210, 180, 60, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  svg1.appendChild(rc1.rectangle(310, 210, 180, 60, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
+  svg1.appendChild(rc1.rectangle(540, 210, 180, 60, { ...R, stroke: purple, fill: purpleBg, fillStyle: 'solid' }));
+
+  addText(svg1, 170, 238, 'Prozessor', { fill: blue, size: '20' });
+  addText(svg1, 170, 258, '(CPU)', { fill: blue, size: '14', weight: '400' });
+  addText(svg1, 400, 238, 'Arbeitsspeicher', { fill: orange, size: '20' });
+  addText(svg1, 400, 258, '(RAM)', { fill: orange, size: '14', weight: '400' });
+  addText(svg1, 630, 238, 'Festplatte', { fill: purple, size: '20' });
+  addText(svg1, 630, 258, '(Speicher)', { fill: purple, size: '14', weight: '400' });
+
+  // Screen content
+  svg1.appendChild(rc1.line(332, 52, 415, 52, { roughness: 0.5, stroke: green, strokeWidth: 1.5 }));
+  svg1.appendChild(rc1.line(332, 68, 462, 68, { roughness: 0.5, stroke: green, strokeWidth: 1 }));
+  svg1.appendChild(rc1.line(332, 84, 445, 84, { roughness: 0.5, stroke: green, strokeWidth: 1 }));
+
+  // ─── Diagram 2: One task per server ───
+  const d2 = document.getElementById('diagram2');
+  const svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg2.setAttribute('viewBox', '0 0 800 260');
+  d2.appendChild(svg2);
+  const rc2 = rough.svg(svg2);
+
+  // Tasks
+  svg2.appendChild(rc2.rectangle(40, 15, 210, 75, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  addText(svg2, 145, 48, 'DNS-Server', { fill: blue, size: '20' });
+  addText(svg2, 145, 70, 'Namen aufloesen', { fill: blue, size: '14', weight: '400' });
+
+  svg2.appendChild(rc2.rectangle(295, 15, 210, 75, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid' }));
+  addText(svg2, 400, 48, 'Datei-Server', { fill: green, size: '20' });
+  addText(svg2, 400, 70, 'Dateien speichern', { fill: green, size: '14', weight: '400' });
+
+  svg2.appendChild(rc2.rectangle(550, 15, 210, 75, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
+  addText(svg2, 655, 48, 'Mail-Server', { fill: orange, size: '20' });
+  addText(svg2, 655, 70, 'E-Mails senden', { fill: orange, size: '14', weight: '400' });
+
+  // Arrows
+  [145, 400, 655].forEach(x => {
+    svg2.appendChild(rc2.line(x, 95, x, 150, { ...R, stroke: muted, strokeWidth: 2 }));
+    svg2.appendChild(rc2.line(x - 8, 140, x, 153, { ...R, stroke: muted, strokeWidth: 2 }));
+    svg2.appendChild(rc2.line(x + 8, 140, x, 153, { ...R, stroke: muted, strokeWidth: 2 }));
+  });
+
+  // Machines
+  svg2.appendChild(rc2.rectangle(60, 158, 170, 60, { ...R, stroke: red, fill: redBg, fillStyle: 'solid' }));
+  addText(svg2, 145, 194, 'Maschine 1', { fill: red, size: '18' });
+  svg2.appendChild(rc2.rectangle(315, 158, 170, 60, { ...R, stroke: red, fill: redBg, fillStyle: 'solid' }));
+  addText(svg2, 400, 194, 'Maschine 2', { fill: red, size: '18' });
+  svg2.appendChild(rc2.rectangle(570, 158, 170, 60, { ...R, stroke: red, fill: redBg, fillStyle: 'solid' }));
+  addText(svg2, 655, 194, 'Maschine 3', { fill: red, size: '18' });
+
+  // Emphasis ellipse
+  svg2.appendChild(rc2.ellipse(400, 240, 560, 30, { ...R, stroke: red, strokeWidth: 1.5, strokeLineDash: [6, 4], fill: 'none' }));
+
+  // ─── Diagram 3: Server room ───
+  const d3 = document.getElementById('diagram3');
+  const svg3 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg3.setAttribute('viewBox', '0 0 800 250');
+  d3.appendChild(svg3);
+  const rc3 = rough.svg(svg3);
+
+  // Racks
+  [70, 180, 290].forEach((x, ri) => {
+    svg3.appendChild(rc3.rectangle(x, 10, 85, 185, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid' }));
+    for (let j = 0; j < 6; j++) {
+      svg3.appendChild(rc3.rectangle(x + 10, 22 + j * 26, 65, 20, { roughness: 0.8, bowing: 0.8, stroke: blue, fill: blueBg, fillStyle: 'solid', strokeWidth: 1.2 }));
+    }
+    addText(svg3, x + 42, 215, `Rack ${ri + 1}`, { fill: green, size: '15' });
+  });
+
+  addText(svg3, 415, 105, '. . .', { fill: muted, size: '28' });
+
+  // Cost items
+  const costs = ['Stromverbrauch', 'Kuehlung', 'Platz / Miete', 'IT-Personal'];
+  costs.forEach((c, i) => {
+    svg3.appendChild(rc3.rectangle(480, 18 + i * 50, 270, 42, { ...R, stroke: red, fill: redBg, fillStyle: 'solid' }));
+    addText(svg3, 615, 46 + i * 50, c, { fill: red, size: '17' });
+  });
+
+  // ─── Diagram 4: Virtualization ───
+  const d4 = document.getElementById('diagram4');
+  const svg4 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg4.setAttribute('viewBox', '0 0 800 270');
+  d4.appendChild(svg4);
+  const rc4 = rough.svg(svg4);
+
+  // Physical server
+  svg4.appendChild(rc4.rectangle(100, 10, 600, 250, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid', roughness: 2 }));
+  addText(svg4, 160, 38, 'Physischer Server (Hardware)', { fill: green, size: '15', anchor: 'start', weight: '500' });
+
+  // Hypervisor
+  svg4.appendChild(rc4.rectangle(130, 55, 540, 48, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
+  addText(svg4, 400, 86, 'Hypervisor (VMware, Hyper-V)', { fill: orange, size: '18' });
+
+  // VMs
+  const vmData = [
+    { x: 140, label: 'VM 1', sub: 'DNS-Server', color: blue, bg: blueBg },
+    { x: 318, label: 'VM 2', sub: 'Datei-Server', color: purple, bg: purpleBg },
+    { x: 496, label: 'VM 3', sub: 'Mail-Server', color: cyan, bg: cyanBg },
+  ];
+  vmData.forEach(vm => {
+    svg4.appendChild(rc4.rectangle(vm.x, 125, 165, 110, { ...R, stroke: vm.color, fill: vm.bg, fillStyle: 'solid' }));
+    addText(svg4, vm.x + 82, 170, vm.label, { fill: vm.color, size: '22' });
+    addText(svg4, vm.x + 82, 198, vm.sub, { fill: vm.color, size: '14', weight: '400' });
+  });
+
+  // ─── Diagram 5: Data centers ───
+  const d5 = document.getElementById('diagram5');
+  const svg5 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg5.setAttribute('viewBox', '0 0 800 280');
+  d5.appendChild(svg5);
+  const rc5 = rough.svg(svg5);
+
+  // Cloud shape
+  svg5.appendChild(rc5.path('M130 185 Q75 185, 60 148 Q22 122, 60 90 Q55 52, 108 44 Q135 10, 200 22 Q248 -8, 320 10 Q370 -10, 430 8 Q482 -8, 535 22 Q588 5, 615 40 Q665 28, 675 68 Q710 82, 695 125 Q720 155, 685 180 Q670 195, 630 185 Z', { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid', roughness: 2 }));
+  addText(svg5, 390, 55, 'Cloud-Rechenzentrum', { fill: blue, size: '20' });
+
+  // Mini servers
+  for (let i = 0; i < 10; i++) {
+    svg5.appendChild(rc5.rectangle(150 + i * 45, 75, 32, 55, { roughness: 0.8, bowing: 0.6, stroke: blue, fill: blueBg, fillStyle: 'solid', strokeWidth: 1.2 }));
+  }
+  addText(svg5, 620, 110, '...', { fill: muted, size: '20' });
+
+  // Providers
+  svg5.appendChild(rc5.rectangle(100, 210, 190, 50, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  addText(svg5, 195, 242, 'Microsoft Azure', { fill: blue, size: '18' });
+  svg5.appendChild(rc5.rectangle(310, 210, 190, 50, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
+  addText(svg5, 405, 242, 'Amazon AWS', { fill: orange, size: '18' });
+  svg5.appendChild(rc5.rectangle(520, 210, 190, 50, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid' }));
+  addText(svg5, 615, 242, 'Google Cloud', { fill: green, size: '18' });
+
+  // ─── Diagram 6: IaaS ───
+  const d6 = document.getElementById('diagram6');
+  const svg6 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg6.setAttribute('viewBox', '0 0 800 200');
+  d6.appendChild(svg6);
+  const rc6 = rough.svg(svg6);
+
+  // User
+  svg6.appendChild(rc6.circle(120, 70, 50, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  svg6.appendChild(rc6.circle(120, 52, 22, { ...R, stroke: blue, strokeWidth: 1.5 }));
+  addText(svg6, 120, 115, 'Nutzer', { fill: blue, size: '17' });
+
+  // Arrow
+  svg6.appendChild(rc6.line(160, 70, 290, 75, { ...R, stroke: muted, strokeWidth: 2 }));
+  svg6.appendChild(rc6.line(278, 68, 293, 75, { ...R, stroke: muted, strokeWidth: 2 }));
+  svg6.appendChild(rc6.line(278, 82, 293, 75, { ...R, stroke: muted, strokeWidth: 2 }));
+  addText(svg6, 225, 60, 'bestellt', { fill: muted, size: '15' });
+
+  // Cloud
+  svg6.appendChild(rc6.path('M330 155 Q292 155, 283 120 Q262 102, 283 78 Q283 50, 325 42 Q350 18, 410 25 Q448 5, 490 22 Q525 8, 550 38 Q582 25, 595 55 Q625 45, 622 78 Q645 92, 628 118 Q640 140, 618 152 Q605 162, 578 155 Z', { ...R, stroke: purple, fill: purpleBg, fillStyle: 'solid', strokeLineDash: [8, 5] }));
+  addText(svg6, 460, 52, 'Cloud', { fill: purple, size: '15', weight: '500' });
+
+  // Items inside
+  svg6.appendChild(rc6.rectangle(338, 72, 118, 55, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid', roughness: 1 }));
+  addText(svg6, 397, 105, 'Windows', { fill: blue, size: '16' });
+  svg6.appendChild(rc6.rectangle(468, 72, 118, 55, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid', roughness: 1 }));
+  addText(svg6, 527, 105, 'Linux', { fill: green, size: '16' });
+
+  // ─── Diagram 7: PaaS ───
+  const d7 = document.getElementById('diagram7');
+  const svg7 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg7.setAttribute('viewBox', '0 0 800 200');
+  d7.appendChild(svg7);
+  const rc7 = rough.svg(svg7);
+
+  // Services
+  svg7.appendChild(rc7.rectangle(50, 15, 215, 72, { ...R, stroke: purple, fill: purpleBg, fillStyle: 'solid' }));
+  addText(svg7, 157, 48, 'Datenbank', { fill: purple, size: '19' });
+  addText(svg7, 157, 70, '(Azure SQL)', { fill: purple, size: '13', weight: '400' });
+
+  svg7.appendChild(rc7.rectangle(295, 15, 215, 72, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  addText(svg7, 402, 48, 'App-Plattform', { fill: blue, size: '19' });
+  addText(svg7, 402, 70, '(App Service)', { fill: blue, size: '13', weight: '400' });
+
+  svg7.appendChild(rc7.rectangle(540, 15, 215, 72, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid' }));
+  addText(svg7, 647, 48, 'Identitaet', { fill: green, size: '19' });
+  addText(svg7, 647, 70, '(Entra ID)', { fill: green, size: '13', weight: '400' });
+
+  // Container bar
+  svg7.appendChild(rc7.rectangle(80, 120, 640, 58, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
+  addText(svg7, 400, 157, 'Container (Docker) — Leichtgewichtige Pakete', { fill: orange, size: '17' });
+
+  // ─── Diagram 8: SaaS ───
+  const d8 = document.getElementById('diagram8');
+  const svg8 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg8.setAttribute('viewBox', '0 0 800 200');
+  d8.appendChild(svg8);
+  const rc8 = rough.svg(svg8);
+
+  // User
+  svg8.appendChild(rc8.circle(140, 95, 60, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  svg8.appendChild(rc8.circle(140, 74, 26, { ...R, stroke: blue, strokeWidth: 1.5 }));
+  addText(svg8, 140, 148, 'Nutzer', { fill: blue, size: '18' });
+
+  // Arrows
+  const arrowYs = [55, 100, 145];
+  arrowYs.forEach(y => {
+    svg8.appendChild(rc8.line(185, 95 + (y - 100) * 0.5, 345, y, { ...R, stroke: muted, strokeWidth: 1.5 }));
+    svg8.appendChild(rc8.line(332, y - 7, 348, y, { ...R, stroke: muted, strokeWidth: 1.5 }));
+    svg8.appendChild(rc8.line(332, y + 7, 348, y, { ...R, stroke: muted, strokeWidth: 1.5 }));
+  });
+  addText(svg8, 250, 78, 'nutzt', { fill: muted, size: '15' });
+
+  // Apps
+  svg8.appendChild(rc8.rectangle(360, 28, 250, 50, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  addText(svg8, 485, 60, 'Microsoft 365', { fill: blue, size: '20' });
+  svg8.appendChild(rc8.rectangle(360, 88, 250, 50, { ...R, stroke: green, fill: greenBg, fillStyle: 'solid' }));
+  addText(svg8, 485, 120, 'Salesforce', { fill: green, size: '20' });
+  svg8.appendChild(rc8.rectangle(360, 148, 250, 50, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
+  addText(svg8, 485, 180, 'Teams / Zoom', { fill: orange, size: '20' });
+
+  // ─── Diagram 10: KV Recklinghausen ───
+  const d10 = document.getElementById('diagram10');
+  const svg10 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg10.setAttribute('viewBox', '0 0 800 220');
+  d10.appendChild(svg10);
+  const rc10 = rough.svg(svg10);
+
+  // Today
+  addText(svg10, 190, 22, 'Heute', { fill: text, size: '22', weight: '700' });
+  svg10.appendChild(rc10.rectangle(60, 35, 260, 62, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
+  addText(svg10, 190, 73, 'Eigene Server (On-Premise)', { fill: orange, size: '17' });
+  svg10.appendChild(rc10.rectangle(60, 107, 260, 50, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid' }));
+  addText(svg10, 190, 138, 'Wenige SaaS-Dienste', { fill: blue, size: '16' });
+
+  // Arrow
+  svg10.appendChild(rc10.line(350, 95, 425, 95, { ...R, stroke: green, strokeWidth: 3 }));
+  svg10.appendChild(rc10.line(412, 87, 428, 95, { ...R, stroke: green, strokeWidth: 3 }));
+  svg10.appendChild(rc10.line(412, 103, 428, 95, { ...R, stroke: green, strokeWidth: 3 }));
+
+  // Future
+  addText(svg10, 590, 22, 'Zukunft', { fill: text, size: '22', weight: '700' });
+  svg10.appendChild(rc10.rectangle(450, 32, 280, 155, { ...R, stroke: blue, fill: 'none', strokeLineDash: [8, 5], roughness: 2 }));
+  svg10.appendChild(rc10.rectangle(468, 45, 244, 40, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid', roughness: 1 }));
+  addText(svg10, 590, 72, 'Eigene Server (reduziert)', { fill: orange, size: '15' });
+  svg10.appendChild(rc10.rectangle(468, 92, 244, 40, { ...R, stroke: purple, fill: purpleBg, fillStyle: 'solid', roughness: 1 }));
+  addText(svg10, 590, 119, 'Cloud-Dienste (IaaS/PaaS)', { fill: purple, size: '15' });
+  svg10.appendChild(rc10.rectangle(468, 139, 244, 40, { ...R, stroke: blue, fill: blueBg, fillStyle: 'solid', roughness: 1 }));
+  addText(svg10, 590, 166, 'SaaS (Microsoft 365 etc.)', { fill: blue, size: '15' });
+}
+
+// Draw on load
+drawAllDiagrams();
+
+// Redraw on theme change (colors change)
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach(m => {
+    if (m.attributeName === 'data-theme') {
+      setTimeout(drawAllDiagrams, 50);
+    }
+  });
+});
+observer.observe(document.documentElement, { attributes: true });
+</script>
 
 <script>
 // ─── Theme toggle ───
 const html = document.documentElement;
 const themeToggle = document.getElementById('themeToggle');
-
-// Detect system preference
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 const savedTheme = localStorage.getItem('cloud-theme');
-if (savedTheme) {
-  html.dataset.theme = savedTheme;
-} else {
-  html.dataset.theme = prefersDark.matches ? 'dark' : 'light';
-}
+if (savedTheme) { html.dataset.theme = savedTheme; }
+else { html.dataset.theme = prefersDark.matches ? 'dark' : 'light'; }
 prefersDark.addEventListener('change', e => {
-  if (!localStorage.getItem('cloud-theme')) {
-    html.dataset.theme = e.matches ? 'dark' : 'light';
-  }
+  if (!localStorage.getItem('cloud-theme')) html.dataset.theme = e.matches ? 'dark' : 'light';
 });
-
 themeToggle.addEventListener('click', () => {
   const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
   html.dataset.theme = next;
   localStorage.setItem('cloud-theme', next);
 });
 
-// ─── Navigation dots ───
+// ─── Nav dots ───
 const sceneNames = ['Start','Computer','Aufgabe','Serverraum','Virtualisierung','Rechenzentren','IaaS','PaaS','SaaS','Vergleich','KV RE'];
 const navEl = document.getElementById('navDots');
 sceneNames.forEach((name, i) => {
   const dot = document.createElement('div');
   dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-  dot.dataset.idx = i;
   dot.innerHTML = '<span class="tooltip">' + name + '</span>';
-  dot.addEventListener('click', () => {
-    document.getElementById('scene-' + i).scrollIntoView({ behavior: 'smooth' });
-  });
+  dot.addEventListener('click', () => { document.getElementById('scene-' + i).scrollIntoView({ behavior: 'smooth' }); });
   navEl.appendChild(dot);
 });
 
 // ─── Keyboard navigation ───
 const sections = document.querySelectorAll('section');
-let currentScene = 0;
-
 function getCurrentScene() {
   let active = 0;
-  sections.forEach((s, i) => {
-    if (s.getBoundingClientRect().top < window.innerHeight * 0.5) active = i;
-  });
+  sections.forEach((s, i) => { if (s.getBoundingClientRect().top < window.innerHeight * 0.5) active = i; });
   return active;
 }
-
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+  if (['ArrowDown','PageDown',' '].includes(e.key)) {
     e.preventDefault();
-    currentScene = Math.min(getCurrentScene() + 1, sections.length - 1);
-    sections[currentScene].scrollIntoView({ behavior: 'smooth' });
-  } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    const next = Math.min(getCurrentScene() + 1, sections.length - 1);
+    sections[next].scrollIntoView({ behavior: 'smooth' });
+  } else if (['ArrowUp','PageUp'].includes(e.key)) {
     e.preventDefault();
-    currentScene = Math.max(getCurrentScene() - 1, 0);
-    sections[currentScene].scrollIntoView({ behavior: 'smooth' });
-  } else if (e.key === 'Home') {
-    e.preventDefault();
-    sections[0].scrollIntoView({ behavior: 'smooth' });
-  } else if (e.key === 'End') {
-    e.preventDefault();
-    sections[sections.length - 1].scrollIntoView({ behavior: 'smooth' });
-  }
+    const prev = Math.max(getCurrentScene() - 1, 0);
+    sections[prev].scrollIntoView({ behavior: 'smooth' });
+  } else if (e.key === 'Home') { e.preventDefault(); sections[0].scrollIntoView({ behavior: 'smooth' }); }
+  else if (e.key === 'End') { e.preventDefault(); sections[sections.length - 1].scrollIntoView({ behavior: 'smooth' }); }
 });
 
 // ─── Progress bar + active dot ───
 function updateProgress() {
   const scrolled = window.scrollY;
   const max = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = max > 0 ? Math.min(scrolled / max, 1) : 0;
-  document.getElementById('progressBar').style.width = (pct * 100) + '%';
-
-  const activeIdx = getCurrentScene();
-  document.querySelectorAll('.nav-dot').forEach((d, i) => {
-    d.classList.toggle('active', i === activeIdx);
-  });
+  document.getElementById('progressBar').style.width = (max > 0 ? Math.min(scrolled / max, 1) * 100 : 0) + '%';
+  const idx = getCurrentScene();
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
 }
-
 let scrollTicking = false;
 window.addEventListener('scroll', () => {
-  if (!scrollTicking) {
-    requestAnimationFrame(() => { updateProgress(); scrollTicking = false; });
-    scrollTicking = true;
-  }
+  if (!scrollTicking) { requestAnimationFrame(() => { updateProgress(); scrollTicking = false; }); scrollTicking = true; }
 }, { passive: true });
 
-// ─── GSAP ScrollTrigger animations ───
+// ─── GSAP animations ───
 gsap.registerPlugin(ScrollTrigger);
 
-// Scene content reveal
 document.querySelectorAll('.scene-content').forEach(el => {
   gsap.from(el, {
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 80%',
-      toggleActions: 'play none none none',
-    },
-    y: 60,
-    opacity: 0,
-    duration: 0.8,
-    ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none none' },
+    y: 60, opacity: 0, duration: 0.8, ease: 'power3.out',
   });
 });
 
-// SVG draw-on animations
-document.querySelectorAll('section').forEach(section => {
-  const drawOns = section.querySelectorAll('.draw-on');
-  if (!drawOns.length) return;
-
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top 65%',
-    onEnter: () => {
-      drawOns.forEach((el, i) => {
-        const len = el.style.getPropertyValue('--len') || '1000';
-        el.style.strokeDasharray = len;
-        el.style.strokeDashoffset = len;
-        const delay = i * 60;
-        setTimeout(() => {
-          el.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
-          el.style.strokeDashoffset = '0';
-        }, delay);
-      });
-    },
-    once: true,
+// Rough diagrams — fade in with scale
+document.querySelectorAll('.rough-diagram').forEach(el => {
+  gsap.from(el, {
+    scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none none' },
+    scale: 0.92, opacity: 0, duration: 0.9, ease: 'power2.out',
   });
 });
 
-// Insight cards — slide in from left
+// Insight cards — slide in
 document.querySelectorAll('.insight-card').forEach(el => {
   gsap.from(el, {
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 85%',
-      toggleActions: 'play none none none',
-    },
-    x: -40,
-    opacity: 0,
-    duration: 0.7,
-    ease: 'power2.out',
+    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+    x: -40, opacity: 0, duration: 0.7, ease: 'power2.out',
   });
 });
 
-// Benefits grid items — stagger
+// Benefits — stagger
 document.querySelectorAll('.benefit-item').forEach((el, i) => {
   gsap.from(el, {
-    scrollTrigger: {
-      trigger: el.parentElement,
-      start: 'top 80%',
-      toggleActions: 'play none none none',
-    },
-    y: 30,
-    opacity: 0,
-    duration: 0.5,
-    delay: i * 0.1,
-    ease: 'power2.out',
+    scrollTrigger: { trigger: el.parentElement, start: 'top 80%', toggleActions: 'play none none none' },
+    y: 30, opacity: 0, duration: 0.5, delay: i * 0.1, ease: 'power2.out',
   });
 });
 
-// Comparison grid cells — stagger reveal
-const compCells = document.querySelectorAll('.comp-cell:not(.header):not(.label)');
-compCells.forEach((el, i) => {
+// Comp grid cells — stagger
+document.querySelectorAll('.comp-cell:not(.header):not(.label)').forEach((el, i) => {
   gsap.from(el, {
-    scrollTrigger: {
-      trigger: el.closest('.comp-grid'),
-      start: 'top 75%',
-      toggleActions: 'play none none none',
-    },
-    scale: 0.8,
-    opacity: 0,
-    duration: 0.3,
-    delay: i * 0.04,
-    ease: 'back.out(1.5)',
+    scrollTrigger: { trigger: el.closest('.comp-grid'), start: 'top 75%', toggleActions: 'play none none none' },
+    scale: 0.8, opacity: 0, duration: 0.3, delay: i * 0.04, ease: 'back.out(1.5)',
   });
 });
 
-// Takeaway cards — scale up
+// Takeaways — scale
 document.querySelectorAll('.takeaway').forEach(el => {
   gsap.from(el, {
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 90%',
-      toggleActions: 'play none none none',
-    },
-    scale: 0.9,
-    opacity: 0,
-    duration: 0.5,
-    ease: 'power2.out',
+    scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' },
+    scale: 0.9, opacity: 0, duration: 0.5, ease: 'power2.out',
   });
 });
 
-// Hero immediate animation
+// Hero
 gsap.from('.hero-badge', { y: -20, opacity: 0, duration: 0.6, delay: 0.1 });
 gsap.from('h1', { y: 30, opacity: 0, duration: 0.8, delay: 0.2 });
 gsap.from('.hero-sub', { y: 20, opacity: 0, duration: 0.6, delay: 0.5 });
 gsap.from('.hero-scroll', { opacity: 0, duration: 0.6, delay: 1 });
-
-// Hero cloud draw
-document.querySelectorAll('.hero-cloud .draw-on, .hero-section .draw-on').forEach((el, i) => {
-  const len = el.style.getPropertyValue('--len') || '1000';
-  el.style.strokeDasharray = len;
-  el.style.strokeDashoffset = len;
-  setTimeout(() => {
-    el.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1)';
-    el.style.strokeDashoffset = '0';
-  }, 400 + i * 200);
-});
 </script>
 </body>
 </html>
