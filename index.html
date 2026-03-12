@@ -371,10 +371,21 @@
   </div>
 </section>
 
-<!-- ==================== SZENE 1 ==================== -->
+<!-- ==================== SZENE 1: Timeline ==================== -->
 <section id="scene-1">
   <div class="scene-content">
-    <h2>Ein einzelner Computer</h2>
+    <h2>Die Geschichte der Cloud</h2>
+    <p class="lead">Vom Grossrechner bis zur KI — ein halbes Jahrhundert Innovation</p>
+    <div class="card" style="padding:2rem 2.5rem;">
+      <div class="rough-diagram" id="diagramTimeline" style="height:520px;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SZENE 2 ==================== -->
+<section id="scene-2">
+  <div class="scene-content">
+    <h2>Wo wir herkommen: Ein einzelner Computer</h2>
     <p class="lead">Was steckt eigentlich in einem Computer?</p>
     <div class="card">
       <div class="rough-diagram" id="diagram1" style="height:280px;"></div>
@@ -383,8 +394,8 @@
   </div>
 </section>
 
-<!-- ==================== SZENE 2 ==================== -->
-<section id="scene-2">
+<!-- ==================== SZENE 3 ==================== -->
+<section id="scene-3">
   <div class="scene-content">
     <h2>Ein Computer, eine Aufgabe</h2>
     <p class="lead">Frueher hatte jeder Server genau einen Job</p>
@@ -396,10 +407,10 @@
 </section>
 
 <!-- ==================== SZENE 3 ==================== -->
-<section id="scene-3">
+<section id="scene-4">
   <div class="scene-content">
     <h2>Der Serverraum</h2>
-    <p class="lead">Viele Server brauchen viel Platz, Strom und Kuehlung</p>
+    <p class="lead">Viele Server brauchen viel Platz, Strom und Kuehlung — SPOF</p>
     <div class="card">
       <div class="rough-diagram" id="diagram3" style="height:250px;"></div>
       <div class="takeaway bg-red c-red">Hohe Kosten, viel Aufwand, wenig Flexibilitaet</div>
@@ -408,9 +419,9 @@
 </section>
 
 <!-- ==================== SZENE 4 ==================== -->
-<section id="scene-4">
+<section id="scene-5">
   <div class="scene-content">
-    <h2>Virtualisierung</h2>
+    <h2>Wo wir stehen: Virtualisierung</h2>
     <p class="lead">Ab ca. 2000: Ein physischer Server, viele virtuelle Maschinen</p>
     <div class="card">
       <div class="rough-diagram" id="diagram4" style="height:270px;"></div>
@@ -425,19 +436,19 @@
 </section>
 
 <!-- ==================== SZENE 5 ==================== -->
-<section id="scene-5">
+<section id="scene-6">
   <div class="scene-content">
-    <h2>Moderne Rechenzentren</h2>
+    <h2>Wo wir hinwollen: Cloud</h2>
     <p class="lead">Riesige Rechenzentren der Cloud-Anbieter</p>
     <div class="card">
       <div class="rough-diagram" id="diagram5" style="height:280px;"></div>
-      <div class="takeaway bg-orange c-orange">Statt eigene Server zu kaufen, mietet man Rechenleistung bei Profis</div>
+      <div class="takeaway bg-orange c-orange">Statt eigene Server zu kaufen, mietet man Rechenleistung bei externen Dienstleistern</div>
     </div>
   </div>
 </section>
 
 <!-- ==================== SZENE 6 ==================== -->
-<section id="scene-6">
+<section id="scene-7">
   <div class="scene-content">
     <h2>Infrastructure as a Service</h2>
     <p class="lead">IaaS — Infrastruktur mieten</p>
@@ -454,7 +465,7 @@
 </section>
 
 <!-- ==================== SZENE 7 ==================== -->
-<section id="scene-7">
+<section id="scene-8">
   <div class="scene-content">
     <h2>Platform as a Service</h2>
     <p class="lead">PaaS — Plattformen mieten</p>
@@ -471,7 +482,7 @@
 </section>
 
 <!-- ==================== SZENE 8 ==================== -->
-<section id="scene-8">
+<section id="scene-9">
   <div class="scene-content">
     <h2>Software as a Service</h2>
     <p class="lead">SaaS — Fertige Software nutzen</p>
@@ -488,7 +499,7 @@
 </section>
 
 <!-- ==================== SZENE 9 ==================== -->
-<section id="scene-9">
+<section id="scene-10">
   <div class="scene-content">
     <h2>Vergleich der Modelle</h2>
     <p class="lead">Wer kuemmert sich um was?</p>
@@ -550,7 +561,7 @@
 </section>
 
 <!-- ==================== SZENE 10 ==================== -->
-<section id="scene-10">
+<section id="scene-11">
   <div class="scene-content">
     <h2>Kreisverwaltung Recklinghausen</h2>
     <p class="lead">Der Weg in die Cloud</p>
@@ -565,7 +576,7 @@
         </div>
         <div class="benefit-item">
           <div class="benefit-icon bg-blue c-blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-          <span>Mehr Sicherheit durch Profis</span>
+          <span>Mehr Sicherheit durch externe Dienstleister</span>
         </div>
         <div class="benefit-item">
           <div class="benefit-icon bg-purple c-purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
@@ -879,6 +890,77 @@ function drawAllDiagrams() {
   svg8.appendChild(rc8.rectangle(360, 148, 250, 50, { ...R, stroke: orange, fill: orangeBg, fillStyle: 'solid' }));
   addText(svg8, 485, 180, 'Teams / Zoom', { fill: orange, size: '20' });
 
+  // ─── Timeline Diagram ───
+  const dTL = document.getElementById('diagramTimeline');
+  if (dTL) {
+    const svgTL = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgTL.setAttribute('viewBox', '0 0 900 520');
+    dTL.appendChild(svgTL);
+    const rcTL = rough.svg(svgTL);
+
+    const eras = [
+      {
+        title: 'Jenseits der physischen Welt',
+        y: 30,
+        color: green,
+        items: [
+          { year: '1967', desc: 'IBM fuehrt ein virtualisiertes Betriebssystem ein.' },
+          { year: '1985', desc: 'Datenspeicher auf Magnetbaendern werden kommerziell verfuegbar.' },
+          { year: '1991', desc: 'Das World Wide Web geht an den Start.' },
+          { year: '1994', desc: 'Der Begriff "Cloud" taucht erstmals auf.' },
+        ]
+      },
+      {
+        title: 'Geburt der Hyperscaler',
+        y: 180,
+        color: blue,
+        items: [
+          { year: '1999', desc: 'VMware erfindet die virtuelle Maschine neu.' },
+          { year: '2006', desc: 'Beginn von Infrastructure as a Service (IaaS). Rechenleistung auf Abruf.' },
+          { year: '2007', desc: 'Microsoft & Google starten Produktivitaets-Tools — erste SaaS-Modelle.' },
+          { year: '2010', desc: 'Microsoft Azure betritt den IaaS-Markt.' },
+        ]
+      },
+      {
+        title: 'Hybrid Cloud entsteht',
+        y: 330,
+        color: orange,
+        items: [
+          { year: '2010er', desc: 'Container & Kubernetes ermoeglichen Multi-Cloud-Strategien.' },
+          { year: '2012', desc: 'Erste Hybrid-Cloud-Plattformen werden gestartet.' },
+          { year: '2020', desc: 'Remote Work wird Standard. Cloud-Ausgaben steigen um 35%.' },
+          { year: '2022+', desc: 'Generative KI, Edge Computing und IoT treiben die Cloud weiter voran.' },
+        ]
+      },
+    ];
+
+    eras.forEach(era => {
+      addText(svgTL, 20, era.y, era.title, { fill: era.color, size: '20', weight: '700', anchor: 'start' });
+
+      // Timeline line
+      svgTL.appendChild(rcTL.line(20, era.y + 22, 870, era.y + 22, { ...R, stroke: era.color, strokeWidth: 2 }));
+
+      // Dots and items
+      era.items.forEach((item, i) => {
+        const x = 30 + i * 215;
+        svgTL.appendChild(rcTL.circle(x + 10, era.y + 22, 14, { ...R, stroke: era.color, fill: era.color, fillStyle: 'solid', roughness: 0.8 }));
+        addText(svgTL, x + 10, era.y + 52, item.year, { fill: text, size: '18', weight: '700', anchor: 'start' });
+
+        // Multi-line description
+        const words = item.desc.split(' ');
+        let lines = [''];
+        let lineIdx = 0;
+        words.forEach(w => {
+          if ((lines[lineIdx] + ' ' + w).length > 30) { lineIdx++; lines[lineIdx] = w; }
+          else { lines[lineIdx] = (lines[lineIdx] + ' ' + w).trim(); }
+        });
+        lines.forEach((line, li) => {
+          addText(svgTL, x + 10, era.y + 70 + li * 18, line, { fill: muted, size: '13', weight: '400', anchor: 'start' });
+        });
+      });
+    });
+  }
+
   // ─── Diagram 10: KV Recklinghausen ───
   const d10 = document.getElementById('diagram10');
   const svg10 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -941,7 +1023,7 @@ themeToggle.addEventListener('click', () => {
 });
 
 // ─── Nav dots ───
-const sceneNames = ['Start','Computer','Aufgabe','Serverraum','Virtualisierung','Rechenzentren','IaaS','PaaS','SaaS','Vergleich','KV RE'];
+const sceneNames = ['Start','Geschichte','Computer','Aufgabe','Serverraum','Virtualisierung','Cloud','IaaS','PaaS','SaaS','Vergleich','KV RE'];
 const navEl = document.getElementById('navDots');
 sceneNames.forEach((name, i) => {
   const dot = document.createElement('div');
